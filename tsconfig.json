@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "src/index.js", "src/App.js", "src/pages/HomePage.jsx", "src/pages/ContactPage.jsx", "src/pages/ApplyPage.jsx", "src/pages/AboutPage.jsx", "src/components/Navigation.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "src/index.js", "src/App.js", "src/pages/HomePage.jsx", "src/pages/ContactPage.jsx", "src/pages/ApplyPage.jsx", "src/pages/AboutPage.jsx", "src/components/Navigation.jsx", "src/lib/utils.js"],
   "exclude": ["node_modules"]
 }
