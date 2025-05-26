@@ -1,170 +1,232 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
 
 const AboutPage = () => {
+  const sections = [
+    {
+      title: "Who We Are",
+      content: (
+        <>
+          Aamukh Capital is a new-age venture capital platform that backs Indian
+          founders before the market believes—and stays with them long after the
+          crowd catches up.
+          <br />
+          <br />
+          We operate through a dual-engine model:
+          <ul className="list-disc list-inside mt-2 ml-4">
+            <li>
+              The Discovery Program – Non-dilutive, founder-first capital at the
+              idea or student stage
+            </li>
+            <li>
+              The Signal Series – ₹1–10 Cr cheques at high-momentum inflection
+              points
+            </li>
+          </ul>
+          <br />
+          But at the core of everything is one belief:
+          <strong>
+            {" "}
+            Ideas evolve. Great founders endure. We back founders—not forecasts.
+          </strong>
+        </>
+      ),
+      image:
+        "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=1000&q=80",
+      reverse: false,
+    },
+    {
+      title: "What 'Aamukh' Means",
+      content: (
+        <>
+          Aamukh (आमख) means threshold or opening act—the beginning of something
+          powerful. That’s how we see ourselves in every founder journey:
+          <ul className="list-disc list-inside mt-2 ml-4">
+            <li>The first call</li>
+            <li>The first cheque</li>
+            <li>The first structured conviction in your corner</li>
+          </ul>
+        </>
+      ),
+      image:
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80",
+      reverse: true,
+    },
+    {
+      title: "Why We Exist",
+      content: (
+        <>
+          India’s venture landscape is growing, but it’s still crowded with
+          consensus thinking and FOMO-driven capital.
+          <br />
+          <br />
+          We built Aamukh to be different:
+          <ul className="list-disc list-inside mt-2 ml-4">
+            <li>We spot breakout energy before the pitch deck</li>
+            <li>We invest from our own balance sheet in every deal</li>
+            <li>
+              We offer real help when founders ask—not dashboards and check-ins
+            </li>
+          </ul>
+        </>
+      ),
+      image:
+        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1000&q=80",
+      reverse: false,
+    },
+    {
+      title: "Our Vision",
+      content: (
+        <>
+          To build India’s most founder-aligned early-stage capital
+          platform—scouting, backing, and scaling ideas that shape the next
+          decade.
+          <br />
+          <br />
+          We’re not chasing the “next big thing.” We’re backing people who
+          become the next big thing.
+        </>
+      ),
+      image:
+        "https://img.freepik.com/premium-vector/financial-vision-investment-opportunity-discovery-future-inflation-interest-rate-forecast-e_926199-3664029.jpg",
+      reverse: true,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="w-full py-20 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center space-y-8">
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
-              About <span className="text-blue-600">Aamukh Capital</span>
-            </h1>
-            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-              We are a new-age venture capital firm dedicated to backing India's next generation of breakout founders.
-              Our mission is to identify and support exceptional entrepreneurs at the inception and inflection points of
-              their journey.
-            </p>
-          </div>
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-4xl mx-auto px-6 space-y-10 text-center">
+          <motion.h1
+            className="text-5xl lg:text-6xl font-bold text-gray-900"
+            initial="hidden"
+            animate="visible"
+            custom={1}
+            variants={fadeUp}
+          >
+            About Us – <span className="text-blue-600">Aamukh Capital</span>
+          </motion.h1>
+          <motion.p
+            className="text-xl text-gray-700 leading-relaxed"
+            initial="hidden"
+            animate="visible"
+            custom={2}
+            variants={fadeUp}
+          >
+            We don’t just fund startups. We build conviction systems that find
+            them first—and back them longer.
+          </motion.p>
         </div>
       </section>
 
-      {/* Our Philosophy */}
-      <section className="w-full py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gray-900">Our Philosophy</h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                At Aamukh Capital, we believe that great companies are built by great founders. Our founder-first
-                approach means we invest in people who have the vision, determination, and capability to build
-                category-defining companies.
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                We understand the unique challenges of the Indian startup ecosystem and provide not just capital, but
-                strategic guidance, mentorship, and access to our extensive network of industry experts and successful
-                entrepreneurs.
-              </p>
-            </div>
-            <div className="relative h-96">
-              <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                alt="Our philosophy"
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What We Do */}
-      <section className="w-full py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">What We Do</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="border-2 border-blue-100 hover:border-blue-300 transition-colors bg-white rounded-lg p-8 space-y-4">
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-white rounded-sm"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Early Stage Investment</h3>
-              <p className="text-gray-700">
-                We invest in pre-seed and seed stage startups, providing the initial capital needed to validate ideas
-                and build initial traction.
-              </p>
-            </div>
-
-            <div className="border-2 border-blue-100 hover:border-blue-300 transition-colors bg-white rounded-lg p-8 space-y-4">
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-white rounded-sm"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Strategic Mentorship</h3>
-              <p className="text-gray-700">
-                Our team of experienced entrepreneurs and industry experts provide hands-on guidance to help founders
-                navigate challenges and scale their businesses.
-              </p>
-            </div>
-
-            <div className="border-2 border-blue-100 hover:border-blue-300 transition-colors bg-white rounded-lg p-8 space-y-4">
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-white rounded-sm"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Network Access</h3>
-              <p className="text-gray-700">
-                We connect our portfolio companies with potential customers, partners, and follow-on investors through
-                our extensive network.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Team */}
-      <section className="w-full py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">Our Team</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white shadow-lg rounded-lg p-8 text-center space-y-4">
-              <div className="relative w-32 h-32 mx-auto">
+      {/* Content Sections */}
+      <section className="w-full py-20 space-y-20">
+        <div className="max-w-7xl mx-auto px-6 space-y-20">
+          {sections.map((section, index) => (
+            <motion.div
+              key={index}
+              className={`flex flex-col md:flex-row ${
+                section.reverse ? "md:flex-row-reverse" : ""
+              } items-center gap-10`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
+              <motion.div
+                className="w-full md:w-1/2"
+                variants={section.reverse ? fadeLeft : fadeRight}
+              >
                 <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  alt="Anurag Sharma"
-                  className="w-full h-full object-cover rounded-full"
+                  src={section.image}
+                  alt={section.title}
+                  className="rounded-xl shadow-lg w-full h-[50%] object-cover"
                 />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-blue-600">Anurag Sharma</h3>
-                <p className="text-lg font-semibold text-gray-900 mb-2">Managing Partner</p>
-                <p className="text-gray-700">
-                  Former India Accelerator executive with extensive experience in early-stage investments and startup
-                  ecosystem development.
+              </motion.div>
+              <motion.div
+                className="w-full md:w-1/2 space-y-4"
+                variants={section.reverse ? fadeRight : fadeLeft}
+              >
+                <h2 className="text-3xl font-bold text-blue-600">
+                  {section.title}
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {section.content}
                 </p>
-              </div>
-            </div>
-
-            <div className="bg-white shadow-lg rounded-lg p-8 text-center space-y-4">
-              <div className="relative w-32 h-32 mx-auto">
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  alt="Ravi Gupta"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-blue-600">Ravi Gupta</h3>
-                <p className="text-lg font-semibold text-gray-900 mb-2">Senior Partner</p>
-                <p className="text-gray-700">
-                  Seasoned investor with 100+ investments across various sectors, bringing deep market insights and
-                  strategic guidance.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white shadow-lg rounded-lg p-8 text-center space-y-4">
-              <div className="relative w-32 h-32 mx-auto">
-                <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  alt="Arjun Prasad"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-blue-600">Arjun Prasad</h3>
-                <p className="text-lg font-semibold text-gray-900 mb-2">Investment Partner</p>
-                <p className="text-gray-700">
-                  Partner at ECH Lab with expertise in technology ventures and innovation-driven business models.
-                </p>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-20 bg-blue-600">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Partner With Us</h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Ready to take your startup to the next level? Let's build something amazing together.
-          </p>
+      <motion.section
+        className="bg-blue-50 py-16 text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+      >
+        <h2 className="text-3xl font-bold text-blue-600">
+          Let’s Build Together
+        </h2>
+        <p className="text-lg text-gray-700 mt-4 max-w-2xl mx-auto">
+          Whether you're a founder starting from a dorm room, or an LP who
+          believes in conviction-first capital—there’s a place for you at
+          Aamukh.
+        </p>
+        <div className="flex flex-col md:flex-row justify-center gap-4 pt-6">
           <Link to="/apply">
-            <button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-medium rounded-lg transition-colors">
-              APPLY FOR FUNDING
+            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+              Apply for Capital
+            </button>
+          </Link>
+          <Link to="/lp-circle">
+            <button className="bg-blue-100 text-blue-700 px-6 py-3 rounded-lg hover:bg-blue-200 transition">
+              Join Our LP Circle
+            </button>
+          </Link>
+          <Link to="/contact">
+            <button className="bg-gray-100 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-200 transition">
+              Talk to the Team
             </button>
           </Link>
         </div>
-      </section>
+      </motion.section>
     </div>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;

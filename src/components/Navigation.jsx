@@ -10,7 +10,7 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 z-50 w-full bg-white border-b shadow-md border-gray-100 px-6 py-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-8xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link
           to="/"
@@ -25,7 +25,7 @@ const Navigation = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-8">
-          {["/", "/about", "/contact"].map((href) => (
+          {["/", "/about", "/contact", "/teams"].map((href) => (
             <Link
               key={href}
               to={href}

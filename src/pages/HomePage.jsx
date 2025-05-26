@@ -17,7 +17,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-[#FFFFFF]">
       {/* Hero Section */}
       <section className="w-full py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1300px] mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
             {/* Left Content */}
             <motion.div
