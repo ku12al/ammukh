@@ -23,7 +23,8 @@ const HomePage = () => {
             <motion.div
               variants={fadeInUp}
               initial="hidden"
-              animate="show"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
               className="space-y-8"
             >
               <div className="space-y-6">
@@ -39,7 +40,12 @@ const HomePage = () => {
                   Inception And Inflection.
                 </p>
               </div>
-              <motion.div variants={buttonFade} initial="hidden" animate="show">
+              <motion.div
+                variants={buttonFade}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.3 }}
+              >
                 <Link to="/about">
                   <button className="bg-[#5271ff] hover:bg-[#5271ff] text-[#FFFFFF] px-8 py-4 text-lg font-medium rounded-lg transition-transform hover:scale-105">
                     LEARN MORE ABOUT OUR PHILOSOPHY →
@@ -51,8 +57,9 @@ const HomePage = () => {
             {/* Right Content - Hero Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7 }}
+              viewport={{ once: true, amount: 0.3 }}
               className="relative"
             >
               <div className="relative w-full h-96 lg:h-[500px]">
@@ -77,6 +84,7 @@ const HomePage = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              viewport={{ once: true, amount: 0.3 }}
               className="text-4xl lg:text-5xl font-bold text-[#132229]"
             >
               Empowering India's Startup Ecosystem
@@ -85,6 +93,7 @@ const HomePage = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
+              viewport={{ once: true, amount: 0.3 }}
               className="text-xl text-[#132229] max-w-3xl mx-auto"
             >
               We are a new-age venture capital firm focused on backing
@@ -101,6 +110,7 @@ const HomePage = () => {
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.2 }}
+                  viewport={{ once: true, amount: 0.3 }}
                   className="text-center space-y-4"
                 >
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
@@ -126,6 +136,7 @@ const HomePage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.3 }}
         className="w-full py-20 bg-[#5271ff]"
       >
         <div className="max-w-4xl mx-auto px-6 text-center">
@@ -135,7 +146,12 @@ const HomePage = () => {
           <p className="text-xl text-blue-100 mb-8">
             Join us in creating the next generation of breakthrough companies.
           </p>
-          <motion.div variants={buttonFade} initial="hidden" whileInView="show">
+          <motion.div
+            variants={buttonFade}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <Link to="/apply">
               <button className="bg-[#FFFFFF] text-[#5271ff] hover:bg-gray-100 px-8 py-4 text-lg font-medium rounded-lg transition-transform hover:scale-105">
                 APPLY NOW
