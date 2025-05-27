@@ -13,6 +13,10 @@ const buttonFade = {
 };
 
 const HomePage = () => {
+
+   const imageHoverClasses =
+    "transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl";
+
   return (
     <div className="min-h-screen bg-[#FFFFFF]">
       {/* Hero Section */}
@@ -78,84 +82,130 @@ const HomePage = () => {
 
       {/* Injected Full Aamukh Content Section */}
       <section className="w-full py-24 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto space-y-12 text-[#132229]">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Why We Exist</h2>
-            <p className="text-lg mb-4 italic">
-              Aamukh means "threshold" or "opening act."
-            </p>
-            <p className="text-lg mb-2">
-              We aim to be the first believer—the first cheque, the first to bet
-              on belief before proof.
-            </p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Spotting India's future unicorns at the college level</li>
-              <li>Backing creators building companies</li>
-              <li>
-                Supporting brands with cultural relevance, not just
-                product-market fit
-              </li>
-            </ul>
-          </motion.div>
+        <div className="max-w-6xl mx-auto space-y-24 text-[#132229]">
+          {/* Block 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Content - slides from left */}
+            <motion.div
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold mb-4">Why We Exist</h2>
+              <p className="text-lg mb-4 italic">
+                Aamukh means "threshold" or "opening act."
+              </p>
+              <p className="text-lg mb-2">
+                We aim to be the first believer—the first cheque, the first to
+                bet on belief before proof.
+              </p>
+              <ul className="list-disc list-inside space-y-2">
+                <li>Spotting India's future unicorns at the college level</li>
+                <li>Backing creators building companies</li>
+                <li>
+                  Supporting brands with cultural relevance, not just
+                  product-market fit
+                </li>
+              </ul>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-4">
-              We’re not just a fund. We’re a conviction platform.
-            </h2>
-            <p className="text-lg mb-2">
-              India doesn’t lack ambition. It needs the systems and capital to
-              turn ambition into lasting companies.
-            </p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Scout the best student and early-stage founders</li>
-              <li>Back them before the rest of the market sees them</li>
-              <li>Scale them with belief and capital</li>
-            </ul>
-          </motion.div>
+            {/* Image - slides from right + hover */}
+            <motion.img
+              src="https://i.ytimg.com/vi/7YK4-b_t1LM/maxresdefault.jpg"
+              alt="Why We Exist"
+              className={`rounded-xl ${imageHoverClasses}`}
+              initial={{ opacity: 0, x: 80 }}
+              whileInView={{ opacity: 1, x: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+              viewport={{ once: true }}
+            />
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-bold mb-4">
-              We don’t just write cheques. We back belief.
-            </h2>
-            <p className="text-lg mb-4">
-              Aamukh exists to identify India’s next generation of iconic
-              founders—and give them the belief, structure, and capital they
-              need to win.
-            </p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>That doesn’t wait for traction to invest.</li>
-              <li>That doesn’t disappear after deploying capital.</li>
-              <li>That doesn’t treat founders as portfolio “entries.”</li>
-              <li>
-                We step in early. We stay when things get hard. We back the
-                first step—and every step after.
-              </li>
-            </ul>
-          </motion.div>
+          {/* Block 2 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image - slides from left + hover */}
+            <motion.img
+              src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80"
+              alt="Conviction Platform"
+              className={`rounded-xl order-1 lg:order-none ${imageHoverClasses}`}
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            />
 
-          {/* Continue inserting the rest of the content in structured, animated sections */}
-          {/* If needed, use two-column grids, CTA buttons, or cards with hover/scale animation for Snapshot of Our Model, Edge, etc. */}
+            {/* Content - slides from right */}
+            <motion.div
+              initial={{ opacity: 0, x: 80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold mb-4">
+                We’re not just a fund. We’re a conviction platform.
+              </h2>
+              <p className="text-lg mb-2">
+                India doesn’t lack ambition. It needs the systems and capital to
+                turn ambition into lasting companies.
+              </p>
+              <ul className="list-disc list-inside space-y-2">
+                <li>Scout the best student and early-stage founders</li>
+                <li>Back them before the rest of the market sees them</li>
+                <li>Scale them with belief and capital</li>
+              </ul>
+            </motion.div>
+          </div>
 
-          {/* Our Edge – Why We're Different */}
+          {/* Block 3 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Content - slides from left */}
+            <motion.div
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold mb-4">
+                We don’t just write cheques. We back belief.
+              </h2>
+              <p className="text-lg mb-4">
+                Aamukh exists to identify India’s next generation of iconic
+                founders—and give them the belief, structure, and capital they
+                need to win.
+              </p>
+              <ul className="list-disc list-inside space-y-2">
+                <li>That doesn’t wait for traction to invest.</li>
+                <li>That doesn’t disappear after deploying capital.</li>
+                <li>That doesn’t treat founders as portfolio “entries.”</li>
+                <li>
+                  We step in early. We stay when things get hard. We back the
+                  first step—and every step after.
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Image - slides from right + hover */}
+            <motion.img
+              src="https://mycurrencyexchange.com/wp-content/uploads/2020/06/writing-a-check.jpg"
+              alt="Back Belief"
+              className={`rounded-xl order-1 lg:order-none ${imageHoverClasses}`}
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            />
+          </div>
+
+          {/* Block 4 - Edge Section */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="space-y-6"
           >
@@ -164,8 +214,8 @@ const HomePage = () => {
             </h2>
 
             <div className="overflow-x-auto">
-              <div className="min-w-[600px] grid grid-cols-2 gap-4 bg-white border border-gray-200 rounded-lg">
-                <div className="p-6 space-y-4 border-r border-gray-200">
+              <div className="min-w-[600px] grid grid-cols-1 md:grid-cols-2 gap-4 bg-white border border-gray-200 rounded-lg">
+                <div className="p-6 space-y-4 border-b md:border-b-0 md:border-r border-gray-200">
                   <h4 className="text-xl font-semibold text-[#5271ff]">
                     What Others Do
                   </h4>
@@ -263,15 +313,16 @@ const HomePage = () => {
             >
               <div>
                 <h3 className="text-2xl font-semibold text-[#132229] mb-4">
-                  🧠 Skin in the Game
+                  🧭 Founder Fellowship
                 </h3>
                 <p className="text-[#132229] mb-6">
-                  We invest in every deal we recommend
+                  Exclusive cohort | Mentorship, capital, & resources |
+                  Founder-first focus
                 </p>
               </div>
-              <Link to="/skin-in-the-game">
+              <Link to="/founder-fellowship">
                 <button className="mt-auto bg-[#5271ff] hover:bg-[#405be0] text-white px-6 py-3 rounded-lg transition-transform hover:scale-105 w-full">
-                  Learn How We Do It →
+                  Join Fellowship →
                 </button>
               </Link>
             </motion.div>
