@@ -31,8 +31,8 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* Hero Section */}
-      <section className="w-full py-20 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="w-full py-24 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-10">
           <div className="text-center space-y-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -61,13 +61,15 @@ const ContactPage = () => {
         viewport={{ once: true }}
       >
         <section className="w-full py-20">
-          <div
-            className="absolute right-0 left-0 bottom-0 top-64 py-10 bg-cover bg-center bg-no-repeat block md:block h-[85%] w-full"
+          <motion.div
+            className="animated-bg absolute right-0 left-0 bottom-0 top-64 py-12 bg-cover block md:block h-full w-full"
             style={{
               backgroundImage:
-                "url(https://cdn.easyfrontend.com/pictures/contact/contact_12.svg)",
+                "url(https://wallpaperaccess.com/full/3004485.png)",
+              
             }}
-          ></div>
+          />
+
           <div className="max-w-7xl mx-auto px-6">
             <div className="bg-white/30 backdrop-blur-md shadow-xl rounded-3xl p-10">
               <div className="grid lg:grid-cols-2 gap-16">

@@ -1,25 +1,26 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+import ParticlesBackground from "../components/ParticlesBackground"
 
 const team = [
   {
     name: "Anurag Sharma",
     title: "CEO",
-    image: "https://via.placeholder.com/150",
+    image: "/Anurag-sharma.png",
     bio: "Ex–India Accelerator, We Founder Circle\nDeals: Garuda Aerospace, iMumz, BluSmart, Crackle",
     linkedin: "https://www.linkedin.com/in/anurag-sharma-0361091b1/",
   },
   {
     name: "Ravi Gupta",
     title: "Chief Advisor",
-    image: "https://via.placeholder.com/150",
+    image: "/Ravi.png",
     bio: "Founder, SafeXPay\n100+ investments: Zypp, Vidyakul, Garuda Aerospace",
     linkedin: "https://www.linkedin.com/in/ravi-gupta-01883719/",
   },
   {
     name: "Arjun Prasad",
     title: "Chief Advisor",
-    image: "https://via.placeholder.com/150",
+    image: "/arjun-prashad.png",
     bio: "Partner, ECH Lab\nInvestor: Uber, Razorpay, 5ire, Delhivery",
     linkedin: "https://www.linkedin.com/in/aparjunprasad/",
   },
@@ -40,8 +41,8 @@ const fadeUp = {
 
 const TeamPage = () => {
   return (
-    <div className="bg-gray-50 min-h-screen pt-32 py-20">
-      <div className="max-w-6xl mx-auto px-6 text-center space-y-14">
+    <div className="bg-gray-50 min-h-screen pt-32 py-20 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 text-center space-y-14 relative z-10">
         {/* Headline */}
         <motion.h1
           className="text-5xl font-bold text-gray-900"
@@ -99,8 +100,7 @@ const TeamPage = () => {
           <h2 className="text-3xl font-bold text-gray-900">Join Our Mission</h2>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             We’re a lean team building India’s most belief-led venture platform. If you’re obsessed with founders,
-            operations, and early-stage magic—
-            <br />
+            operations, and early-stage magic—<br />
             <strong>this is your place.</strong>
           </p>
           <Link to="/careers">
