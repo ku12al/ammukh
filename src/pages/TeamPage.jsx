@@ -1,6 +1,8 @@
-import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
-import ParticlesBackground from "../components/ParticlesBackground"
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import ParticlesBackground from "../components/ParticlesBackground";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const team = [
   {
@@ -24,7 +26,7 @@ const team = [
     bio: "Partner, ECH Lab\nInvestor: Uber, Razorpay, 5ire, Delhivery",
     linkedin: "https://www.linkedin.com/in/aparjunprasad/",
   },
-]
+];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -37,15 +39,26 @@ const fadeUp = {
       ease: "easeOut",
     },
   }),
-}
+};
 
 const TeamPage = () => {
+  const location = useLocation();
+  const [renderKey, setRenderKey] = useState(0);
+
+  useEffect(() => {
+    setRenderKey(prev => prev + 1);
+  }, [location.pathname]);
   return (
-    <div className="bg-gray-50 min-h-screen pt-32 py-20 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 text-center space-y-14 relative z-10">
+    <div className="relative overflow-hidden">
+      {/* Header section with particles */}
+      <div className="absolute inset-0 h-[500px] z-0">
+        <ParticlesBackground />
+      </div>
+
+      <div className="relative z-10 pt-32 pb-20 bg-gray-50">
         {/* Headline */}
         <motion.h1
-          className="text-5xl font-bold text-gray-900"
+          className="text-5xl font-bold text-gray-900 text-center"
           initial="hidden"
           animate="visible"
           custom={1}
@@ -55,7 +68,7 @@ const TeamPage = () => {
         </motion.h1>
 
         {/* Team Members */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-14 max-w-6xl mx-auto px-6">
           {team.map((member, i) => (
             <motion.div
               key={member.name}
@@ -71,7 +84,9 @@ const TeamPage = () => {
                 className="w-32 h-32 rounded-full object-cover mx-auto mb-4"
               />
               <h3 className="text-xl font-bold text-center">{member.name}</h3>
-              <p className="text-sm text-gray-600 text-center mb-2">{member.title}</p>
+              <p className="text-sm text-gray-600 text-center mb-2">
+                {member.title}
+              </p>
               <p className="text-gray-700 whitespace-pre-line text-sm text-center">
                 {member.bio}
               </p>
@@ -99,8 +114,9 @@ const TeamPage = () => {
         >
           <h2 className="text-3xl font-bold text-gray-900">Join Our Mission</h2>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            We’re a lean team building India’s most belief-led venture platform. If you’re obsessed with founders,
-            operations, and early-stage magic—<br />
+            We’re a lean team building India’s most belief-led venture platform.
+            If you’re obsessed with founders, operations, and early-stage magic—
+            <br />
             <strong>this is your place.</strong>
           </p>
           <Link to="/careers">
@@ -111,7 +127,7 @@ const TeamPage = () => {
         </motion.div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TeamPage
+export default TeamPage;

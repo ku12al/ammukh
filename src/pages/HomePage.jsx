@@ -13,8 +13,57 @@ const buttonFade = {
 };
 
 const HomePage = () => {
+const floatingCircles = [
+  // Top left cluster
+  { size: 24, top: "5%", left: "5%", bg: "bg-blue-500", opacity: 0.3, duration: 3, delay: 0 },
+  { size: 32, top: "15%", left: "10%", bg: "bg-indigo-500", opacity: 0.2, duration: 4, delay: 2 },
+  { size: 20, top: "25%", left: "8%", bg: "bg-purple-500", opacity: 0.25, duration: 3.5, delay: 1 },
+  { size: 28, top: "10%", left: "15%", bg: "bg-pink-500", opacity: 0.2, duration: 2.5, delay: 3 },
 
-   const imageHoverClasses =
+  // Top right cluster
+  { size: 18, top: "5%", right: "5%", bg: "bg-green-500", opacity: 0.15, duration: 4.5, delay: 4 },
+  { size: 22, top: "20%", right: "10%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 5 },
+  { size: 26, top: "15%", right: "15%", bg: "bg-blue-400", opacity: 0.22, duration: 3.5, delay: 14 },
+  { size: 30, top: "25%", right: "8%", bg: "bg-pink-400", opacity: 0.2, duration: 4, delay: 15 },
+
+  // Bottom left cluster
+  { size: 18, bottom: "5%", left: "5%", bg: "bg-purple-400", opacity: 0.18, duration: 3, delay: 16 },
+  { size: 24, bottom: "10%", left: "10%", bg: "bg-green-400", opacity: 0.17, duration: 3.5, delay: 17 },
+  { size: 20, bottom: "15%", left: "7%", bg: "bg-indigo-400", opacity: 0.2, duration: 3, delay: 18 },
+  { size: 28, bottom: "8%", left: "12%", bg: "bg-pink-600", opacity: 0.25, duration: 4, delay: 19 },
+
+  // Bottom right cluster
+  { size: 16, bottom: "5%", right: "5%", bg: "bg-green-600", opacity: 0.15, duration: 2.5, delay: 20 },
+  { size: 20, bottom: "10%", right: "12%", bg: "bg-blue-600", opacity: 0.2, duration: 3, delay: 21 },
+  { size: 18, bottom: "15%", right: "10%", bg: "bg-purple-600", opacity: 0.22, duration: 3.5, delay: 22 },
+  { size: 24, bottom: "8%", right: "7%", bg: "bg-indigo-600", opacity: 0.25, duration: 3, delay: 23 },
+
+  // Far left vertical
+  { size: 22, top: "40%", left: "1%", bg: "bg-yellow-700", opacity: 0.25, duration: 3.5, delay: 6 },
+  { size: 22, top: "60%", left: "3%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 7 },
+  { size: 22, top: "80%", left: "1%", bg: "bg-yellow-300", opacity: 0.25, duration: 2.5, delay: 8 },
+
+  // Far right vertical
+  { size: 22, top: "40%", right: "1%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 9 },
+  { size: 22, top: "60%", right: "3%", bg: "bg-yellow-700", opacity: 0.25, duration: 3.5, delay: 10 },
+  { size: 22, top: "80%", right: "1%", bg: "bg-yellow-300", opacity: 0.25, duration: 2.5, delay: 11 },
+
+  // More scattered (avoiding center area)
+  { size: 22, top: "15%", left: "25%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 12 },
+  { size: 22, top: "75%", right: "25%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 13 },
+  { size: 18, top: "85%", left: "20%", bg: "bg-yellow-400", opacity: 0.22, duration: 3.5, delay: 24 },
+  { size: 20, top: "10%", right: "30%", bg: "bg-yellow-300", opacity: 0.25, duration: 3, delay: 25 },
+  { size: 24, bottom: "15%", left: "25%", bg: "bg-yellow-600", opacity: 0.28, duration: 3.5, delay: 26 },
+  { size: 18, top: "30%", right: "30%", bg: "bg-yellow-700", opacity: 0.22, duration: 2.5, delay: 27 },
+  { size: 16, bottom: "20%", left: "30%", bg: "bg-yellow-500", opacity: 0.18, duration: 3, delay: 28 },
+
+  // Extra for more coverage around edges
+  { size: 22, top: "5%", left: "40%", bg: "bg-pink-400", opacity: 0.15, duration: 3, delay: 29 },
+  { size: 22, bottom: "5%", right: "40%", bg: "bg-green-400", opacity: 0.18, duration: 3, delay: 30 },
+];
+
+
+  const imageHoverClasses =
     "transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl";
 
   return (
@@ -89,7 +138,6 @@ const HomePage = () => {
             <motion.div
               initial={{ opacity: 0, x: -80 }}
               whileInView={{ opacity: 1, x: 0 }}
-              
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
@@ -244,8 +292,38 @@ const HomePage = () => {
       </section>
 
       {/* Snapshot of Our Model Section */}
-      <section className="w-full py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
+
+      <section className="relative w-full py-20 bg-gray-50 overflow-hidden">
+        {/* Multiple floating circles */}
+        {floatingCircles.map(
+          (
+            { size, top, bottom, left, right, bg, opacity, duration, delay },
+            i
+          ) => (
+            <motion.div
+              key={i}
+              className={`absolute rounded-full ${bg}`}
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                top,
+                bottom,
+                left,
+                right,
+                opacity,
+              }}
+              animate={{ y: [0, 15, 0] }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                repeatType: "loop",
+                delay,
+              }}
+            />
+          )
+        )}
+
+        <div className="relative max-w-7xl mx-auto px-6">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

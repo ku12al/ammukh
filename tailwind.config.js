@@ -10,6 +10,15 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
       },
+      keyframes: {
+        panBackground: {
+          '0%': { 'background-position': '0% center' },
+          '100%': { 'background-position': '100% center' },
+        },
+      },
+      animation: {
+        'pan-bg': 'panBackground 60s linear infinite',
+      },
     },
   },
   plugins: [],

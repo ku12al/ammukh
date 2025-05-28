@@ -24,7 +24,6 @@ const ContactPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Handle form submission here
     alert("Message sent successfully!");
   };
 
@@ -53,24 +52,26 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Contact Form and Info */}
+      {/* Contact Form and Info with background image behind */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        <section className="w-full py-20">
-          <motion.div
-            className="animated-bg absolute right-0 left-0 bottom-0 top-64 py-12 bg-cover block md:block h-full w-full"
-            style={{
-              backgroundImage:
-                "url(https://wallpaperaccess.com/full/3004485.png)",
-              
-            }}
-          />
+        <section className="w-full py-20 relative"> {/* make this relative */}
 
-          <div className="max-w-7xl mx-auto px-6">
+          {/* Background Image behind content */}
+          <div
+            className="absolute inset-0 bg-cover bg-repeat-x animate-pan-bg"
+            style={{
+              backgroundImage: "url(https://wallpaperaccess.com/full/3004485.png)",
+              zIndex: 0,
+            }}
+          ></div>
+
+          {/* Content wrapper with higher z-index */}
+          <div className="relative z-10 max-w-7xl mx-auto px-6">
             <div className="bg-white/30 backdrop-blur-md shadow-xl rounded-3xl p-10">
               <div className="grid lg:grid-cols-2 gap-16">
                 {/* Contact Form */}
@@ -188,6 +189,8 @@ const ContactPage = () => {
                   </div>
 
                   <div className="space-y-6">
+                    {/* ... your contact info items unchanged ... */}
+                    {/* Offices */}
                     <div className="flex items-start space-x-4">
                       <svg
                         className="w-6 h-6 text-blue-600 mt-1"
@@ -213,15 +216,12 @@ const ContactPage = () => {
                           Our Offices
                         </h3>
                         <div className="text-gray-700 space-y-1">
-                          <p>
-                            Mumbai Office: Bandra Kurla Complex, Mumbai 400051
-                          </p>
-                          <p>Bengaluru Office: Koramangala, Bengaluru 560034</p>
-                          <p>Delhi Office: Connaught Place, New Delhi 110001</p>
+                          <p>Gurugram, India</p>
                         </div>
                       </div>
                     </div>
 
+                    {/* Phone */}
                     <div className="flex items-start space-x-4">
                       <svg
                         className="w-6 h-6 text-blue-600 mt-1"
@@ -240,10 +240,11 @@ const ContactPage = () => {
                         <h3 className="text-lg font-semibold text-gray-900">
                           Phone
                         </h3>
-                        <p className="text-gray-700">+91 9876543210</p>
+                        <p className="text-gray-700">+91 9407684357</p>
                       </div>
                     </div>
 
+                    {/* Email */}
                     <div className="flex items-start space-x-4">
                       <svg
                         className="w-6 h-6 text-blue-600 mt-1"
@@ -262,50 +263,9 @@ const ContactPage = () => {
                         <h3 className="text-lg font-semibold text-gray-900">
                           Email
                         </h3>
-                        <div className="text-gray-700 space-y-1">
-                          <p>General: hello@aamukhcapital.com</p>
-                          <p>Investments: invest@aamukhcapital.com</p>
-                          <p>Press: press@aamukhcapital.com</p>
-                        </div>
+                        <p className="text-gray-700">kunalkmr2608@gmail.com</p>
                       </div>
                     </div>
-
-                    <div className="flex items-start space-x-4">
-                      <svg
-                        className="w-6 h-6 text-blue-600 mt-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          Business Hours
-                        </h3>
-                        <div className="text-gray-700 space-y-1">
-                          <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
-                          <p>Saturday: 10:00 AM - 2:00 PM IST</p>
-                          <p>Sunday: Closed</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
-                      Quick Response
-                    </h3>
-                    <p className="text-gray-700">
-                      For urgent matters or investment inquiries, we typically
-                      respond within 24 hours during business days. For general
-                      inquiries, please allow up to 48 hours for a response.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -313,6 +273,21 @@ const ContactPage = () => {
           </div>
         </section>
       </motion.div>
+
+      {/* Tailwind keyframe animation example */}
+      <style jsx>{`
+        @keyframes pan-bg {
+          0% {
+            background-position: 0 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+        .animate-pan-bg {
+          animation: pan-bg 10s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };

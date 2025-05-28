@@ -1,64 +1,45 @@
 // src/components/ParticlesBackground.jsx
-import { useCallback } from "react"
-import Particles from "react-tsparticles"
-import { loadFull } from "tsparticles"
+import { useEffect, useRef } from "react";
 
 const ParticlesBackground = () => {
-  const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine)
-  }, [])
+  const initialized = useRef(false);
+
+  useEffect(() => {
+    // Re-initialize only if not already running
+    if (initialized.current) return;
+
+    if (window.FinisherHeader) {
+      initialized.current = true;
+
+      new window.FinisherHeader({
+        count: 100,
+        size: { min: 2, max: 8, pulse: 0 },
+        speed: { x: { min: 0, max: 0.4 }, y: { min: 0, max: 0.6 } },
+        colors: {
+          background: "#f9fafb",
+          particles: ["#fbfcca", "#d7f3fe", "#ffd0a7"],
+        },
+        blending: "overlay",
+        opacity: { center: 1, edge: 0 },
+        skew: -2,
+        shapes: ["c"],
+      });
+    }
+  }, []);
 
   return (
-    <Particles
-      id="tsparticles"
-      init={particlesInit}
-      options={{
-        fullScreen: { enable: false },
-        background: {
-          color: "#f9fafb",
-        },
-        particles: {
-          number: {
-            value: 50,
-            density: {
-              enable: true,
-              area: 800,
-            },
-          },
-          color: {
-            value: "#000000",
-          },
-          shape: {
-            type: "circle",
-          },
-          opacity: {
-            value: 0.3,
-          },
-          size: {
-            value: 2,
-          },
-          links: {
-            enable: true,
-            distance: 150,
-            color: "#000000",
-            opacity: 0.2,
-            width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 1,
-          },
-        },
-        detectRetina: true,
-      }}
+    <div
+      className="finisher-header"
       style={{
-        position: "absolute",
         width: "100%",
         height: "100%",
+        position: "absolute",
+        top: 0,
+        left: 0,
         zIndex: 0,
       }}
     />
-  )
-}
+  );
+};
 
-export default ParticlesBackground
+export default ParticlesBackground;

@@ -31,7 +31,7 @@ const Navigation = () => {
               to={href}
               className={`text-lg pb-1 border-b-2 ${
                 location.pathname === href
-                  ? "text-blue-600 font-medium border-blue-600"
+                  ? "text-blue-600 font-bold border-blue-600"
                   : "text-gray-700 hover:text-blue-600 border-transparent hover:border-blue-400"
               } transition-colors`}
             >
