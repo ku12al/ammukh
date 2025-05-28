@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -29,11 +30,16 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 relative">
-      
-        {/* Hero Section */}
-        <section className="w-full py-20 lg:py-32 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center space-y-8">
+      {/* Hero Section */}
+      <section className="w-full py-20 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center space-y-8"
+            >
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
                 Get In <span className="text-blue-600">Touch</span>
               </h1>
@@ -42,19 +48,26 @@ const ContactPage = () => {
                 interested in co-investing, or just want to learn more about
                 what we do, we'd love to hear from you.
               </p>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Contact Form and Info */}
+      {/* Contact Form and Info */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        viewport={{ once: true }}
+      >
         <section className="w-full py-20">
           <div
-        className="absolute right-0 left-0 bottom-0 top-64 py-10 bg-cover bg-center bg-no-repeat block md:block h-full w-full"
-        style={{
-          backgroundImage:
-            "url(https://cdn.easyfrontend.com/pictures/contact/contact_12.svg)",
-        }}
-      ></div>
+            className="absolute right-0 left-0 bottom-0 top-64 py-10 bg-cover bg-center bg-no-repeat block md:block h-[85%] w-full"
+            style={{
+              backgroundImage:
+                "url(https://cdn.easyfrontend.com/pictures/contact/contact_12.svg)",
+            }}
+          ></div>
           <div className="max-w-7xl mx-auto px-6">
             <div className="bg-white/30 backdrop-blur-md shadow-xl rounded-3xl p-10">
               <div className="grid lg:grid-cols-2 gap-16">
@@ -149,12 +162,14 @@ const ContactPage = () => {
                         required
                       />
                     </div>
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       type="submit"
                       className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-medium rounded-lg transition-colors"
                     >
                       Send Message
-                    </button>
+                    </motion.button>
                   </form>
                 </div>
 
@@ -295,8 +310,8 @@ const ContactPage = () => {
             </div>
           </div>
         </section>
-      </div>
-    
+      </motion.div>
+    </div>
   );
 };
 
