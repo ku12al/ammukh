@@ -13,55 +13,302 @@ const buttonFade = {
 };
 
 const HomePage = () => {
-const floatingCircles = [
-  // Top left cluster
-  { size: 24, top: "5%", left: "5%", bg: "bg-blue-500", opacity: 0.3, duration: 3, delay: 0 },
-  { size: 32, top: "15%", left: "10%", bg: "bg-indigo-500", opacity: 0.2, duration: 4, delay: 2 },
-  { size: 20, top: "25%", left: "8%", bg: "bg-purple-500", opacity: 0.25, duration: 3.5, delay: 1 },
-  { size: 28, top: "10%", left: "15%", bg: "bg-pink-500", opacity: 0.2, duration: 2.5, delay: 3 },
+  const floatingCircles = [
+    // Top left cluster
+    {
+      size: 24,
+      top: "5%",
+      left: "5%",
+      bg: "bg-blue-500",
+      opacity: 0.3,
+      duration: 3,
+      delay: 0,
+    },
+    {
+      size: 32,
+      top: "15%",
+      left: "10%",
+      bg: "bg-indigo-500",
+      opacity: 0.2,
+      duration: 4,
+      delay: 2,
+    },
+    {
+      size: 20,
+      top: "25%",
+      left: "8%",
+      bg: "bg-purple-500",
+      opacity: 0.25,
+      duration: 3.5,
+      delay: 1,
+    },
+    {
+      size: 28,
+      top: "10%",
+      left: "15%",
+      bg: "bg-pink-500",
+      opacity: 0.2,
+      duration: 2.5,
+      delay: 3,
+    },
 
-  // Top right cluster
-  { size: 18, top: "5%", right: "5%", bg: "bg-green-500", opacity: 0.15, duration: 4.5, delay: 4 },
-  { size: 22, top: "20%", right: "10%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 5 },
-  { size: 26, top: "15%", right: "15%", bg: "bg-blue-400", opacity: 0.22, duration: 3.5, delay: 14 },
-  { size: 30, top: "25%", right: "8%", bg: "bg-pink-400", opacity: 0.2, duration: 4, delay: 15 },
+    // Top right cluster
+    {
+      size: 18,
+      top: "5%",
+      right: "5%",
+      bg: "bg-green-500",
+      opacity: 0.15,
+      duration: 4.5,
+      delay: 4,
+    },
+    {
+      size: 22,
+      top: "20%",
+      right: "10%",
+      bg: "bg-yellow-500",
+      opacity: 0.25,
+      duration: 3,
+      delay: 5,
+    },
+    {
+      size: 26,
+      top: "15%",
+      right: "15%",
+      bg: "bg-blue-400",
+      opacity: 0.22,
+      duration: 3.5,
+      delay: 14,
+    },
+    {
+      size: 30,
+      top: "25%",
+      right: "8%",
+      bg: "bg-pink-400",
+      opacity: 0.2,
+      duration: 4,
+      delay: 15,
+    },
 
-  // Bottom left cluster
-  { size: 18, bottom: "5%", left: "5%", bg: "bg-purple-400", opacity: 0.18, duration: 3, delay: 16 },
-  { size: 24, bottom: "10%", left: "10%", bg: "bg-green-400", opacity: 0.17, duration: 3.5, delay: 17 },
-  { size: 20, bottom: "15%", left: "7%", bg: "bg-indigo-400", opacity: 0.2, duration: 3, delay: 18 },
-  { size: 28, bottom: "8%", left: "12%", bg: "bg-pink-600", opacity: 0.25, duration: 4, delay: 19 },
+    // Bottom left cluster
+    {
+      size: 18,
+      bottom: "5%",
+      left: "5%",
+      bg: "bg-purple-400",
+      opacity: 0.18,
+      duration: 3,
+      delay: 16,
+    },
+    {
+      size: 24,
+      bottom: "10%",
+      left: "10%",
+      bg: "bg-green-400",
+      opacity: 0.17,
+      duration: 3.5,
+      delay: 17,
+    },
+    {
+      size: 20,
+      bottom: "15%",
+      left: "7%",
+      bg: "bg-indigo-400",
+      opacity: 0.2,
+      duration: 3,
+      delay: 18,
+    },
+    {
+      size: 28,
+      bottom: "8%",
+      left: "12%",
+      bg: "bg-pink-600",
+      opacity: 0.25,
+      duration: 4,
+      delay: 19,
+    },
 
-  // Bottom right cluster
-  { size: 16, bottom: "5%", right: "5%", bg: "bg-green-600", opacity: 0.15, duration: 2.5, delay: 20 },
-  { size: 20, bottom: "10%", right: "12%", bg: "bg-blue-600", opacity: 0.2, duration: 3, delay: 21 },
-  { size: 18, bottom: "15%", right: "10%", bg: "bg-purple-600", opacity: 0.22, duration: 3.5, delay: 22 },
-  { size: 24, bottom: "8%", right: "7%", bg: "bg-indigo-600", opacity: 0.25, duration: 3, delay: 23 },
+    // Bottom right cluster
+    {
+      size: 16,
+      bottom: "5%",
+      right: "5%",
+      bg: "bg-green-600",
+      opacity: 0.15,
+      duration: 2.5,
+      delay: 20,
+    },
+    {
+      size: 20,
+      bottom: "10%",
+      right: "12%",
+      bg: "bg-blue-600",
+      opacity: 0.2,
+      duration: 3,
+      delay: 21,
+    },
+    {
+      size: 18,
+      bottom: "15%",
+      right: "10%",
+      bg: "bg-purple-600",
+      opacity: 0.22,
+      duration: 3.5,
+      delay: 22,
+    },
+    {
+      size: 24,
+      bottom: "8%",
+      right: "7%",
+      bg: "bg-indigo-600",
+      opacity: 0.25,
+      duration: 3,
+      delay: 23,
+    },
 
-  // Far left vertical
-  { size: 22, top: "40%", left: "1%", bg: "bg-yellow-700", opacity: 0.25, duration: 3.5, delay: 6 },
-  { size: 22, top: "60%", left: "3%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 7 },
-  { size: 22, top: "80%", left: "1%", bg: "bg-yellow-300", opacity: 0.25, duration: 2.5, delay: 8 },
+    // Far left vertical
+    {
+      size: 22,
+      top: "40%",
+      left: "1%",
+      bg: "bg-yellow-700",
+      opacity: 0.25,
+      duration: 3.5,
+      delay: 6,
+    },
+    {
+      size: 22,
+      top: "60%",
+      left: "3%",
+      bg: "bg-yellow-500",
+      opacity: 0.25,
+      duration: 3,
+      delay: 7,
+    },
+    {
+      size: 22,
+      top: "80%",
+      left: "1%",
+      bg: "bg-yellow-300",
+      opacity: 0.25,
+      duration: 2.5,
+      delay: 8,
+    },
 
-  // Far right vertical
-  { size: 22, top: "40%", right: "1%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 9 },
-  { size: 22, top: "60%", right: "3%", bg: "bg-yellow-700", opacity: 0.25, duration: 3.5, delay: 10 },
-  { size: 22, top: "80%", right: "1%", bg: "bg-yellow-300", opacity: 0.25, duration: 2.5, delay: 11 },
+    // Far right vertical
+    {
+      size: 22,
+      top: "40%",
+      right: "1%",
+      bg: "bg-yellow-500",
+      opacity: 0.25,
+      duration: 3,
+      delay: 9,
+    },
+    {
+      size: 22,
+      top: "60%",
+      right: "3%",
+      bg: "bg-yellow-700",
+      opacity: 0.25,
+      duration: 3.5,
+      delay: 10,
+    },
+    {
+      size: 22,
+      top: "80%",
+      right: "1%",
+      bg: "bg-yellow-300",
+      opacity: 0.25,
+      duration: 2.5,
+      delay: 11,
+    },
 
-  // More scattered (avoiding center area)
-  { size: 22, top: "15%", left: "25%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 12 },
-  { size: 22, top: "75%", right: "25%", bg: "bg-yellow-500", opacity: 0.25, duration: 3, delay: 13 },
-  { size: 18, top: "85%", left: "20%", bg: "bg-yellow-400", opacity: 0.22, duration: 3.5, delay: 24 },
-  { size: 20, top: "10%", right: "30%", bg: "bg-yellow-300", opacity: 0.25, duration: 3, delay: 25 },
-  { size: 24, bottom: "15%", left: "25%", bg: "bg-yellow-600", opacity: 0.28, duration: 3.5, delay: 26 },
-  { size: 18, top: "30%", right: "30%", bg: "bg-yellow-700", opacity: 0.22, duration: 2.5, delay: 27 },
-  { size: 16, bottom: "20%", left: "30%", bg: "bg-yellow-500", opacity: 0.18, duration: 3, delay: 28 },
+    // More scattered (avoiding center area)
+    {
+      size: 22,
+      top: "15%",
+      left: "25%",
+      bg: "bg-yellow-500",
+      opacity: 0.25,
+      duration: 3,
+      delay: 12,
+    },
+    {
+      size: 22,
+      top: "75%",
+      right: "25%",
+      bg: "bg-yellow-500",
+      opacity: 0.25,
+      duration: 3,
+      delay: 13,
+    },
+    {
+      size: 18,
+      top: "85%",
+      left: "20%",
+      bg: "bg-yellow-400",
+      opacity: 0.22,
+      duration: 3.5,
+      delay: 24,
+    },
+    {
+      size: 20,
+      top: "10%",
+      right: "30%",
+      bg: "bg-yellow-300",
+      opacity: 0.25,
+      duration: 3,
+      delay: 25,
+    },
+    {
+      size: 24,
+      bottom: "15%",
+      left: "25%",
+      bg: "bg-yellow-600",
+      opacity: 0.28,
+      duration: 3.5,
+      delay: 26,
+    },
+    {
+      size: 18,
+      top: "30%",
+      right: "30%",
+      bg: "bg-yellow-700",
+      opacity: 0.22,
+      duration: 2.5,
+      delay: 27,
+    },
+    {
+      size: 16,
+      bottom: "20%",
+      left: "30%",
+      bg: "bg-yellow-500",
+      opacity: 0.18,
+      duration: 3,
+      delay: 28,
+    },
 
-  // Extra for more coverage around edges
-  { size: 22, top: "5%", left: "40%", bg: "bg-pink-400", opacity: 0.15, duration: 3, delay: 29 },
-  { size: 22, bottom: "5%", right: "40%", bg: "bg-green-400", opacity: 0.18, duration: 3, delay: 30 },
-];
-
+    // Extra for more coverage around edges
+    {
+      size: 22,
+      top: "5%",
+      left: "40%",
+      bg: "bg-pink-400",
+      opacity: 0.15,
+      duration: 3,
+      delay: 29,
+    },
+    {
+      size: 22,
+      bottom: "5%",
+      right: "40%",
+      bg: "bg-green-400",
+      opacity: 0.18,
+      duration: 3,
+      delay: 30,
+    },
+  ];
 
   const imageHoverClasses =
     "transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl";
@@ -409,14 +656,66 @@ const floatingCircles = [
       </section>
 
       {/* Our Investment Philosophy Section */}
-      <section className="w-full py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+      <section
+        className="w-full relative overflow-hidden"
+        style={{ height: "700px" }}
+      >
+        {/* Sliding images wrapper */}
+        <div className="absolute inset-0 z-0 overflow-hidden h-full w-full">
+          <div
+            className="flex animate-slide-step h-full"
+            style={{
+              width: "500vw", // 5 images * 100vw each
+            }}
+          >
+            <img
+              src="https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg"
+              alt="slide 1"
+              className="w-screen h-full object-cover"
+            />
+            <img
+              src="https://th.bing.com/th/id/OIP.jdu8EvPAO4808apRFR-TPAHaEo?rs=1&pid=ImgDetMain"
+              alt="slide 2"
+              className="w-screen h-full object-cover"
+            />
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/015/286/533/non_2x/economy-and-finance-concept-financial-business-investment-statistics-with-stock-market-candlesticks-and-bar-chart-on-blue-background-vector.jpg"
+              alt="slide 3"
+              className="w-screen h-full object-cover"
+            />
+            <img
+              src="https://happay.com/blog/wp-content/uploads/sites/12/2023/07/financial-assets-scaled.webp"
+              alt="slide 4"
+              className="w-screen h-full object-cover"
+            />
+            {/* Repeat first image for seamless looping */}
+            <img
+              src="https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg"
+              alt="slide 1 repeat"
+              className="w-screen h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Content on glass card */}
+        <div
+          className="max-w-4xl mx-auto px-6 relative z-10 flex flex-col justify-center items-center h-[80%] mt-16"
+          style={{
+            background: "rgba(255, 255, 255, 0.15)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            borderRadius: "15px",
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+            border: "1px solid rgba(255, 255, 255, 0.18)",
+            padding: "2rem",
+          }}
+        >
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-4xl lg:text-5xl font-bold text-[#132229] mb-6"
+            className="text-4xl lg:text-5xl font-bold text-[#132229] mb-6 flex justify-center items-center"
           >
             Our Investment Philosophy
           </motion.h2>
@@ -426,7 +725,7 @@ const floatingCircles = [
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-xl font-medium text-[#132229] mb-10"
+            className="text-xl font-medium text-[#132229] mb-10 flex justify-center items-center"
           >
             Structured belief. Founder-first capital. Long-term conviction.
           </motion.p>
@@ -454,6 +753,47 @@ const floatingCircles = [
             </p>
           </motion.div>
         </div>
+
+        <style jsx>{`
+          @keyframes slideStep {
+            0% {
+              transform: translateX(0);
+            }
+            15% {
+              transform: translateX(0);
+            }
+            20% {
+              transform: translateX(-100vw);
+            }
+            35% {
+              transform: translateX(-100vw);
+            }
+            40% {
+              transform: translateX(-200vw);
+            }
+            55% {
+              transform: translateX(-200vw);
+            }
+            60% {
+              transform: translateX(-300vw);
+            }
+            75% {
+              transform: translateX(-300vw);
+            }
+            80% {
+              transform: translateX(-400vw);
+            }
+            95% {
+              transform: translateX(-400vw);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+          .animate-slide-step {
+            animation: slideStep 25s ease-in-out infinite;
+          }
+        `}</style>
       </section>
 
       {/* The Dual Model Section */}
@@ -644,6 +984,23 @@ const floatingCircles = [
           </motion.div>
         </div>
       </motion.section>
+
+      <style JSX>
+        {`
+        @keyframes slideBackground {
+  0% { background-image: url('https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg'); }
+  33% { background-image: url('/images/bg2.jpg'); }
+  66% { background-image: url('/images/bg3.jpg'); }
+  100% { background-image: url('/images/bg1.jpg'); }
+}
+.bg-slider {
+  animation: slideBackground 15s infinite;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1s ease-in-out;
+}
+`}
+      </style>
     </div>
   );
 };

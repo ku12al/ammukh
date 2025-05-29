@@ -30,25 +30,23 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* Hero Section */}
-      <section className="w-full py-24 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-10">
-          <div className="text-center space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center space-y-8"
-            >
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
-                Get In <span className="text-blue-600">Touch</span>
-              </h1>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                Whether you're a founder looking for investment, an investor
-                interested in co-investing, or just want to learn more about
-                what we do, we'd love to hear from you.
-              </p>
-            </motion.div>
-          </div>
+      <section className="w-full py-16 sm:py-20 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center space-y-6 sm:space-y-8"
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900">
+              Get In <span className="text-blue-600">Touch</span>
+            </h1>
+            <p className="text-base sm:text-lg text-gray-700 max-w-xl sm:max-w-3xl mx-auto leading-relaxed">
+              Whether you're a founder looking for investment, an investor
+              interested in co-investing, or just want to learn more about
+              what we do, we'd love to hear from you.
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -59,33 +57,36 @@ const ContactPage = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        <section className="w-full py-20 relative"> {/* make this relative */}
-
+        <section className="w-full py-16 sm:py-20 relative overflow-hidden">
           {/* Background Image behind content */}
           <div
             className="absolute inset-0 bg-cover bg-repeat-x animate-pan-bg"
             style={{
-              backgroundImage: "url(https://wallpaperaccess.com/full/3004485.png)",
+              backgroundImage: "url(https://wallpapercave.com/wp/wp6944248.jpg)",
               zIndex: 0,
             }}
           ></div>
 
           {/* Content wrapper with higher z-index */}
-          <div className="relative z-10 max-w-7xl mx-auto px-6">
-            <div className="bg-white/30 backdrop-blur-md shadow-xl rounded-3xl p-10">
-              <div className="grid lg:grid-cols-2 gap-16">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white/30 backdrop-blur-md shadow-xl rounded-3xl p-6 sm:p-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16">
                 {/* Contact Form */}
-                <div className="bg-white/50 backdrop-blur-md shadow-md rounded-2xl p-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <div className="bg-white/50 backdrop-blur-md shadow-md rounded-2xl p-6 sm:p-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
                     Send us a message
                   </h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
+                  <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                          htmlFor="firstName"
+                          className="block text-sm font-medium text-gray-700 mb-1"
+                        >
                           First Name
                         </label>
                         <input
+                          id="firstName"
                           type="text"
                           name="firstName"
                           value={formData.firstName}
@@ -96,10 +97,14 @@ const ContactPage = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                          htmlFor="lastName"
+                          className="block text-sm font-medium text-gray-700 mb-1"
+                        >
                           Last Name
                         </label>
                         <input
+                          id="lastName"
                           type="text"
                           name="lastName"
                           value={formData.lastName}
@@ -111,10 +116,14 @@ const ContactPage = () => {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Email
                       </label>
                       <input
+                        id="email"
                         type="email"
                         name="email"
                         value={formData.email}
@@ -125,10 +134,14 @@ const ContactPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Company
                       </label>
                       <input
+                        id="company"
                         type="text"
                         name="company"
                         value={formData.company}
@@ -138,10 +151,14 @@ const ContactPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="subject"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Subject
                       </label>
                       <input
+                        id="subject"
                         type="text"
                         name="subject"
                         value={formData.subject}
@@ -152,10 +169,14 @@ const ContactPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Message
                       </label>
                       <textarea
+                        id="message"
                         name="message"
                         value={formData.message}
                         onChange={handleInputChange}
@@ -177,23 +198,22 @@ const ContactPage = () => {
                 </div>
 
                 {/* Contact Information */}
-                <div className="bg-white/50 backdrop-blur-md shadow-md rounded-2xl p-8">
+                <div className="bg-white/50 backdrop-blur-md shadow-md rounded-2xl p-6 sm:p-8">
                   <div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
                       Contact Information
                     </h2>
-                    <p className="text-lg text-gray-700 mb-8">
+                    <p className="text-base sm:text-lg text-gray-700 mb-8">
                       We're here to help and answer any questions you might
                       have. We look forward to hearing from you.
                     </p>
                   </div>
 
-                  <div className="space-y-6">
-                    {/* ... your contact info items unchanged ... */}
+                  <div className="space-y-6 text-gray-700">
                     {/* Offices */}
                     <div className="flex items-start space-x-4">
                       <svg
-                        className="w-6 h-6 text-blue-600 mt-1"
+                        className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -215,16 +235,14 @@ const ContactPage = () => {
                         <h3 className="text-lg font-semibold text-gray-900">
                           Our Offices
                         </h3>
-                        <div className="text-gray-700 space-y-1">
-                          <p>Gurugram, India</p>
-                        </div>
+                        <p>Gurugram, India</p>
                       </div>
                     </div>
 
                     {/* Phone */}
                     <div className="flex items-start space-x-4">
                       <svg
-                        className="w-6 h-6 text-blue-600 mt-1"
+                        className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -237,17 +255,15 @@ const ContactPage = () => {
                         />
                       </svg>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          Phone
-                        </h3>
-                        <p className="text-gray-700">+91 9407684357</p>
+                        <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
+                        <p>+91 9407684357</p>
                       </div>
                     </div>
 
                     {/* Email */}
                     <div className="flex items-start space-x-4">
                       <svg
-                        className="w-6 h-6 text-blue-600 mt-1"
+                        className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -260,10 +276,8 @@ const ContactPage = () => {
                         />
                       </svg>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          Email
-                        </h3>
-                        <p className="text-gray-700">kunalkmr2608@gmail.com</p>
+                        <h3 className="text-lg font-semibold text-gray-900">Email</h3>
+                        <p>aamukhcapital@gmail.com</p>
                       </div>
                     </div>
                   </div>
