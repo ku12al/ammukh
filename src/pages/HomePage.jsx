@@ -1,17 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
 
 const buttonFade = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.3 } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 1.2, duration: 0.6, ease: "easeOut" },
+  },
 };
-
 const HomePage = () => {
   const floatingCircles = [
     // Top left cluster
@@ -314,10 +318,27 @@ const HomePage = () => {
     "transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl";
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF]">
+    <div className="min-h-screen bg-[#FFFFFF] mt-0">
       {/* Hero Section */}
-      <section className="w-full py-20 lg:py-32">
-        <div className="max-w-[1300px] mx-auto px-6">
+      <section className="w-full min-h-screen py-20 mt-[80px] lg:py-28 bg-gradient-to-br from-[#bbc9f9] to-[#f4cfcf] relative overflow-hidden shadow-black">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="/assets/hero-illustration1.png"
+            alt="Background visual"
+            className="w-full h-full object-cover opacity-60"
+          />
+        </motion.div>
+
+        {/* Glow Background Circles */}
+        <div className="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] bg-blue-100 rounded-full blur-[120px] opacity-50 z-0" />
+        <div className="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-purple-100 rounded-full blur-[120px] opacity-50 z-0" />
+
+        <div className="max-w-[1350px] mx-auto px-8 relative z-10 mt-10">
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
             {/* Left Content */}
             <motion.div
@@ -327,19 +348,55 @@ const HomePage = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="space-y-8"
             >
-              <div className="space-y-6">
-                <p className="text-[#5271ff] font-medium text-lg">
+              <motion.div
+                className="space-y-6"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <motion.p
+                  className="text-[#5271ff] font-medium text-lg tracking-wide uppercase"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                >
                   — Smart Investment for Bright Futures
-                </p>
-                <h1 className="text-5xl lg:text-6xl font-bold text-[#132229] leading-tight">
-                  Built in <span className="text-[#5271ff]">Bharat</span>,<br />
-                  For the <span className="text-[#5271ff]">World</span>.
-                </h1>
-                <p className="text-xl text-[#132229] leading-relaxed max-w-lg">
+                </motion.p>
+
+                <motion.h1
+                  className="text-5xl lg:text-6xl font-extrabold text-[#132229] leading-tight tracking-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                >
+                  Built in{" "}
+                  <motion.span
+                    className="text-[#5271ff] hover:scale-105 transition-transform inline-block"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    Bharat
+                  </motion.span>
+                  <br />
+                  For the{" "}
+                  <motion.span
+                    className="text-[#5271ff] hover:scale-105 transition-transform inline-block"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    World
+                  </motion.span>
+                </motion.h1>
+
+                <motion.p
+                  className="text-xl text-[#132229] leading-relaxed max-w-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.9, duration: 0.8 }}
+                >
                   We Back India's Next Generation Of Breakout Founders—At
                   Inception And Inflection.
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
+
               <motion.div
                 variants={buttonFade}
                 initial="hidden"
@@ -347,38 +404,38 @@ const HomePage = () => {
                 viewport={{ once: true, amount: 0.3 }}
               >
                 <Link to="/about">
-                  <button className="bg-[#5271ff] hover:bg-[#5271ff] text-[#FFFFFF] px-8 py-4 text-lg font-medium rounded-lg transition-transform hover:scale-105">
-                    LEARN MORE ABOUT OUR PHILOSOPHY →
+                  <button className="flex items-center gap-2 bg-[#5271ff] hover:bg-[#415ad2] text-white px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 hover:scale-105 shadow-lg">
+                    LEARN MORE ABOUT OUR PHILOSOPHY
+                    <ArrowRight className="w-5 h-5" />
                   </button>
                 </Link>
               </motion.div>
             </motion.div>
 
             {/* Right Content - Hero Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="relative"
-            >
-              <div className="relative w-full h-96 lg:h-[500px]">
-                <div className="absolute inset-0 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-blue-200">
-                  <img
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                    alt="Financial analytics and business growth"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </motion.div>
+            {/* <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="relative group"
+          >
+            <div className="relative w-full h-full lg:h-[700px] rounded-3xl overflow-hidden shadow-2xl">
+              <img
+                src="/assets/hero-illustration1.png"
+                alt="Financial analytics and business growth"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </motion.div> */}
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-8 pointer-events-none" />
       </section>
 
       {/* Injected Full Aamukh Content Section */}
-      <section className="w-full py-24 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto space-y-24 text-[#132229]">
+      <section className="w-full py-20 px-6 bg-gray-50 mt-0">
+        <div className="max-w-6xl mx-auto space-y-20 text-[#132229]">
           {/* Block 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Content - slides from left */}
@@ -702,11 +759,11 @@ const HomePage = () => {
           className="max-w-4xl mx-auto px-6 relative z-10 flex flex-col justify-center items-center h-[80%] mt-16"
           style={{
             background: "rgba(255, 255, 255, 0.15)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(18px)",
             borderRadius: "15px",
-            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
+            boxShadow: "12 12px 32px 8 rgba(31, 38, 135, 0.37)",
+            border: "6px solid rgba(255, 255, 255, 0.18)",
             padding: "2rem",
           }}
         >
@@ -725,7 +782,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-xl font-medium text-[#132229] mb-10 flex justify-center items-center"
+            className="text-xl font-bold text-[#132229] mb-10 flex justify-center items-center"
           >
             Structured belief. Founder-first capital. Long-term conviction.
           </motion.p>
@@ -735,7 +792,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-lg text-[#132229] leading-relaxed space-y-4 text-left max-w-3xl mx-auto"
+            className="text-lg text-[#132229] leading-relaxed space-y-4 text-left max-w-3xl mx-auto font-medium"
           >
             <p>
               Aamukh backs founders early — and stays with them as they scale.
