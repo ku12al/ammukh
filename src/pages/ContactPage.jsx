@@ -30,7 +30,7 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* Hero Section */}
-      <section className="w-full py-16 sm:py-20 lg:py-24 bg-white">
+      <section className="w-full pt-28 sm:pt-20 lg:pt-24 py-16 sm:py-20 mt-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
