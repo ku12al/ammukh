@@ -430,11 +430,11 @@ const HomePage = () => {
           </motion.div> */}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-8 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-gray-50 to-transparent z-8 pointer-events-none" />
       </section>
 
       {/* Injected Full Aamukh Content Section */}
-      <section className="w-full py-20 px-6 bg-gray-50 mt-0">
+      <section className="w-full py-20 px-6 bg-gray-50 shadow-black">
         <div className="max-w-6xl mx-auto space-y-20 text-[#132229]">
           {/* Block 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

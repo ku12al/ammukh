@@ -1,9 +1,43 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+// import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useAnimation,
+} from "framer-motion";
+import { useRef } from "react";
+
+const steps = [
+  {
+    number: 1,
+    title: "Application",
+    description: "Submit your application with company details and pitch deck",
+  },
+  {
+    number: 2,
+    title: "Review",
+    description: "Our team reviews your application within 2 weeks",
+  },
+  {
+    number: 3,
+    title: "Meeting",
+    description: "Initial meeting to discuss your vision and business model",
+  },
+  {
+    number: 4,
+    title: "Decision",
+    description: "Final decision and term sheet if we move forward",
+  },
+];
 
 const ApplyPage = () => {
+    const containerRef = useRef(null);
   const [formData, setFormData] = useState({
     companyName: "",
     website: "",
@@ -44,10 +78,46 @@ const ApplyPage = () => {
     );
   };
 
+
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"], // start animation when section enters viewport
+  });
+
+  const arrowX = useTransform(scrollYProgress, [0, 1], ["0%", "92%"]);
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ threshold: 0.2 });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    } else {
+      controls.start("hidden");
+    }
+  }, [inView, controls]);
+
+  const arrowVariants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.3, type: "spring" },
+    }),
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative">
       {/* Hero Section */}
-      <section className="w-full py-20 lg:py-32 bg-white">
+
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="w-full pt-28 sm:pt-20 lg:pt-24 py-16 sm:py-20 mt-20 bg-white"
+      >
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center space-y-8">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
@@ -60,7 +130,7 @@ const ApplyPage = () => {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Apply for Capital Section */}
       <section className="w-full py-20 bg-white">
@@ -193,48 +263,43 @@ const ApplyPage = () => {
       </section>
 
       {/* Application Process */}
-      <section className="w-full py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">
-            Our Process
-          </h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
-                1
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Application</h3>
-              <p className="text-gray-700">
-                Submit your application with company details and pitch deck
-              </p>
+      <section ref={containerRef} className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16">Our Process</h2>
+
+          <div className="relative h-32">
+            {/* Connecting Line */}
+            <div className="absolute top-[15%] left-32 w-[75%] h-1 bg-gray-300 z-0" />
+
+            {/* Moving Arrow */}
+            <motion.div
+              className="absolute top-[15%] transform -translate-y-1/2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold z-10"
+              style={{ left: arrowX }}
+            >
+              →
+            </motion.div>
+
+            {/* Step Circles */}
+            <div className="flex justify-between relative z-20">
+              {steps.map((step, idx) => (
+                <div key={idx} className="flex flex-col items-center w-1/4">
+                  <div className="w-10 h-10 bg-white border-4 border-blue-600 rounded-full flex items-center justify-center font-bold text-blue-600">
+                    {step.number}
+                  </div>
+                  <p className="mt-2 font-semibold text-center">{step.title}</p>
+                </div>
+              ))}
             </div>
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
-                2
+          </div>
+
+          {/* Step Descriptions */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
+            {steps.map((step, idx) => (
+              <div key={idx} className="p-4 text-center">
+                <h4 className="font-bold text-lg mb-2">{step.title}</h4>
+                <p className="text-gray-600">{step.description}</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900">Review</h3>
-              <p className="text-gray-700">
-                Our team reviews your application within 2 weeks
-              </p>
-            </div>
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
-                3
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Meeting</h3>
-              <p className="text-gray-700">
-                Initial meeting to discuss your vision and business model
-              </p>
-            </div>
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
-                4
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Decision</h3>
-              <p className="text-gray-700">
-                Final decision and term sheet if we move forward
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>

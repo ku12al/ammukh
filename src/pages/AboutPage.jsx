@@ -127,7 +127,7 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="w-full py-20 lg:py-28 bg-white">
+      <section className="w-full pt-28 sm:pt-20 lg:pt-24 py-16 sm:py-20 mt-20 bg-white">
         <div className="max-w-4xl mx-auto px-6 space-y-10 text-center">
           <motion.h1
             className="text-5xl lg:text-6xl font-bold text-gray-900"
