@@ -713,16 +713,13 @@ const HomePage = () => {
       </section>
 
       {/* Our Investment Philosophy Section */}
-      <section
-        className="w-full relative overflow-hidden"
-        style={{ height: "700px" }}
-      >
+      <section className="w-full relative overflow-hidden h-[700px] sm:h-[800px]">
         {/* Sliding images wrapper */}
         <div className="absolute inset-0 z-0 overflow-hidden h-full w-full">
           <div
             className="flex animate-slide-step h-full"
             style={{
-              width: "500vw", // 5 images * 100vw each
+              width: "500vw",
             }}
           >
             <img
@@ -745,7 +742,6 @@ const HomePage = () => {
               alt="slide 4"
               className="w-screen h-full object-cover"
             />
-            {/* Repeat first image for seamless looping */}
             <img
               src="https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg"
               alt="slide 1 repeat"
@@ -754,16 +750,16 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Content on glass card */}
+        {/* Glassmorphic Card Content */}
         <div
-          className="max-w-4xl mx-auto px-6 relative z-10 flex flex-col justify-center items-center h-[80%] mt-16"
+          className="w-[90%] sm:w-[85%] lg:max-w-4xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col justify-center items-center h-[85%] mt-12 sm:mt-16"
           style={{
             background: "rgba(255, 255, 255, 0.15)",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(18px)",
             borderRadius: "15px",
-            boxShadow: "12 12px 32px 8 rgba(31, 38, 135, 0.37)",
-            border: "6px solid rgba(255, 255, 255, 0.18)",
+            boxShadow: "12px 12px 32px 6px rgba(31, 38, 135, 0.37)",
+            border: "4px solid rgba(255, 255, 255, 0.18)",
             padding: "2rem",
           }}
         >
@@ -772,7 +768,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-4xl lg:text-5xl font-bold text-[#132229] mb-6 flex justify-center items-center"
+            className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#132229] mb-4 text-center"
           >
             Our Investment Philosophy
           </motion.h2>
@@ -782,7 +778,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-xl font-bold text-[#132229] mb-10 flex justify-center items-center"
+            className="text-base sm:text-lg font-semibold text-[#132229] mb-6 text-center px-2"
           >
             Structured belief. Founder-first capital. Long-term conviction.
           </motion.p>
@@ -792,14 +788,18 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="text-lg text-[#132229] leading-relaxed space-y-4 text-left max-w-3xl mx-auto font-medium"
+            className="text-sm sm:text-base text-[#132229] leading-relaxed space-y-4 text-left max-w-3xl font-medium"
           >
-            <p>
+            <p className="text-center sm:text-left">
               Aamukh backs founders early — and stays with them as they scale.
             </p>
-            <p>We don’t wait for traction.</p>
-            <p>We don’t follow trends.</p>
-            <p>We don’t disappear after the cheque clears.</p>
+            <p className="text-center sm:text-left">
+              We don’t wait for traction.
+            </p>
+            <p className="text-center sm:text-left">We don’t follow trends.</p>
+            <p className="text-center sm:text-left">
+              We don’t disappear after the cheque clears.
+            </p>
             <p>
               We invest with a system — one that lets us:
               <ul className="list-disc list-inside mt-2 space-y-2">
