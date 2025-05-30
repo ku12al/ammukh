@@ -9,6 +9,10 @@ import {
   TrendingUp,
   Users,
   ArrowRight,
+  IndianRupee,
+  ShieldCheck,
+  Rocket,
+    Zap,
 } from "lucide-react";
 // import { Card, CardContent } from "@/components/ui/card";
 import generateFloatingCircles from "../components/config/floatingCircles2";
@@ -833,7 +837,7 @@ const HomePage = () => {
 
             {/* Image - slides from right + hover */}
             <motion.img
-              src="https://i.ytimg.com/vi/7YK4-b_t1LM/maxresdefault.jpg"
+              src="https://cdn.prod.website-files.com/59ad2221052e560001d6401f/5f04429b9d8d7d9d1273e2db_Why_We_Exist_01.png"
               alt="Why We Exist"
               className={`rounded-xl ${imageHoverClasses}`}
               initial={{ opacity: 0, x: 80 }}
@@ -848,7 +852,7 @@ const HomePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image - slides from left + hover */}
             <motion.img
-              src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80"
+              src="https://thumbs.dreamstime.com/b/fund-raising-money-donation-illustration-charity-tiny-people-character-putting-huge-glass-jar-donate-male-stand-225299539.jpg"
               alt="Conviction Platform"
               className={`rounded-xl order-1 lg:order-none ${imageHoverClasses}`}
               initial={{ opacity: 0, x: -80 }}
@@ -910,7 +914,7 @@ const HomePage = () => {
 
             {/* Image - slides from right + hover */}
             <motion.img
-              src="https://mycurrencyexchange.com/wp-content/uploads/2020/06/writing-a-check.jpg"
+              src="https://cdni.iconscout.com/illustration/premium/thumb/woman-using-bank-cheque-for-fund-transfer-illustration-download-in-svg-png-gif-file-formats--check-funds-businesswoman-money-transactions-business-activities-pack-people-illustrations-4353702.png"
               alt="Back Belief"
               className={`rounded-xl order-1 lg:order-none ${imageHoverClasses}`}
               initial={{ opacity: 0, x: -80 }}
@@ -997,7 +1001,18 @@ const HomePage = () => {
         {/* Multiple floating circles */}
         {floatingCircles.map(
           (
-            { size, top, bottom, left, right, bg, opacity, duration, delay, color },
+            {
+              size,
+              top,
+              bottom,
+              left,
+              right,
+              bg,
+              opacity,
+              duration,
+              delay,
+              color,
+            },
             i
           ) => (
             <motion.div
@@ -1251,12 +1266,16 @@ const HomePage = () => {
       </section>
 
       {/* The Dual Model Section */}
-      <section className="w-full py-20 bg-gray-100">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="relative w-full py-24 overflow-hidden bg-gradient-to-b from-[#f9f9fb] to-[#eaeef3]">
+        {/* Background decorative blobs */}
+        <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-purple-200 opacity-30 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-[-80px] right-[-80px] w-[300px] h-[300px] bg-pink-200 opacity-30 rounded-full filter blur-3xl animate-pulse"></div>
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="text-4xl lg:text-5xl font-bold text-[#132229] text-center mb-4"
           >
@@ -1264,19 +1283,19 @@ const HomePage = () => {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="text-xl text-center text-[#132229] mb-12"
+            className="text-xl text-center text-[#132229] mb-6"
           >
             Two tracks. One belief system.
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
             className="text-center text-lg text-[#132229] max-w-3xl mx-auto mb-16"
           >
@@ -1287,66 +1306,74 @@ const HomePage = () => {
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Track 1: Discovery Program */}
+            {/* Track 1: Discovery */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-6 shadow-md"
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-3xl p-8 shadow-xl transition-all border border-gray-200 hover:shadow-2xl"
             >
-              <h3 className="text-2xl font-semibold text-[#132229] mb-4">
-                Track 1: Discovery Program
+              <h3 className="text-2xl font-semibold text-[#132229] mb-6 flex items-center gap-3">
+                <Lightbulb className="text-yellow-500" /> Track 1: Discovery
+                Program
               </h3>
-              <div className="space-y-2 text-[#132229] text-base">
-                <p>
-                  <strong>Stage:</strong> Idea, student, pre-PMF
+              <div className="space-y-4 text-[#132229] text-base">
+                <p className="flex items-center gap-2">
+                  <Lightbulb size={18} /> <strong>Stage:</strong> Idea, student,
+                  pre-PMF
                 </p>
-                <p>
-                  <strong>Cheque Size:</strong> ₹5–25 lakhs
+                <p className="flex items-center gap-2">
+                  <IndianRupee size={18} /> <strong>Cheque Size:</strong> ₹5–25
+                  lakhs
                 </p>
-                <p>
-                  <strong>Equity:</strong> No dilution
+                <p className="flex items-center gap-2">
+                  <ShieldCheck size={18} /> <strong>Equity:</strong> No dilution
                 </p>
-                <p>
-                  <strong>Edge:</strong> Access + long-term rights + no-pressure
-                  GTM help
+                <p className="flex items-center gap-2">
+                  <Rocket size={18} /> <strong>Edge:</strong> Access + long-term
+                  rights + no-pressure GTM help
                 </p>
-                <p>
-                  <strong>Why it matters:</strong> We get in before the crowd
+                <p className="flex items-center gap-2">
+                  <Users size={18} /> <strong>Why it matters:</strong> We get in
+                  before the crowd
                 </p>
               </div>
             </motion.div>
 
             {/* Track 2: Signal Series */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-6 shadow-md"
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-3xl p-8 shadow-xl transition-all border border-gray-200 hover:shadow-2xl"
             >
-              <h3 className="text-2xl font-semibold text-[#132229] mb-4">
-                Track 2: Signal Series
+              <h3 className="text-2xl font-semibold text-[#132229] mb-6 flex items-center gap-3">
+                <TrendingUp className="text-green-600" /> Track 2: Signal Series
               </h3>
-              <div className="space-y-2 text-[#132229] text-base">
-                <p>
-                  <strong>Stage:</strong> Post-PMF, early scale, breakout
-                  traction
+              <div className="space-y-4 text-[#132229] text-base">
+                <p className="flex items-center gap-2">
+                  <Zap size={18} /> <strong>Stage:</strong> Post-PMF, early
+                  scale, breakout traction
                 </p>
-                <p>
-                  <strong>Cheque Size:</strong> ₹1–10 Cr
+                <p className="flex items-center gap-2">
+                  <IndianRupee size={18} /> <strong>Cheque Size:</strong> ₹1–10
+                  Cr
                 </p>
-                <p>
-                  <strong>Equity:</strong> Standard (co-investment with top
-                  investors)
+                <p className="flex items-center gap-2">
+                  <ShieldCheck size={18} /> <strong>Equity:</strong> Standard
+                  (co-investment with top investors)
                 </p>
-                <p>
-                  <strong>Edge:</strong> Brand momentum + GTM + ops leverage
+                <p className="flex items-center gap-2">
+                  <Rocket size={18} /> <strong>Edge:</strong> Brand momentum +
+                  GTM + ops leverage
                 </p>
-                <p>
-                  <strong>Why it matters:</strong> We join at the inflection,
-                  not the peak
+                <p className="flex items-center gap-2">
+                  <Handshake size={18} /> <strong>Why it matters:</strong> We
+                  join at the inflection, not the peak
                 </p>
               </div>
             </motion.div>
