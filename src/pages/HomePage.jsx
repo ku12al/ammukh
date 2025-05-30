@@ -1,7 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import {
+  CheckCircle,
+  Handshake,
+  Target,
+  Lightbulb,
+  TrendingUp,
+  Users,
+  ArrowRight,
+} from "lucide-react";
+// import { Card, CardContent } from "@/components/ui/card";
+import generateFloatingCircles from "../components/config/floatingCircles2";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -16,6 +26,15 @@ const buttonFade = {
     transition: { delay: 1.2, duration: 0.6, ease: "easeOut" },
   },
 };
+
+const Card = ({ children }) => (
+  <div className="bg-white shadow-md rounded-xl border border-gray-100">
+    {children}
+  </div>
+);
+
+const CardContent = ({ children }) => <div className="p-6">{children}</div>;
+
 const HomePage = () => {
   const floatingCircles = [
     // Top left cluster
@@ -314,6 +333,328 @@ const HomePage = () => {
     },
   ];
 
+  // const floatingCircles2 = [
+  //   // Top left cluster
+  //   {
+  //     size: 24,
+  //     top: "5%",
+  //     left: "5%",
+  //     bg: "bg-blue-500",
+  //     opacity: 0.3,
+  //     duration: 3,
+  //     delay: 0,
+  //   },
+  //   {
+  //     size: 32,
+  //     top: "15%",
+  //     left: "10%",
+  //     bg: "bg-indigo-500",
+  //     opacity: 0.2,
+  //     duration: 4,
+  //     delay: 2,
+  //   },
+  //   {
+  //     size: 20,
+  //     top: "25%",
+  //     left: "8%",
+  //     bg: "bg-purple-500",
+  //     opacity: 0.25,
+  //     duration: 3.5,
+  //     delay: 1,
+  //   },
+  //   {
+  //     size: 28,
+  //     top: "10%",
+  //     left: "15%",
+  //     bg: "bg-pink-500",
+  //     opacity: 0.2,
+  //     duration: 2.5,
+  //     delay: 3,
+  //   },
+
+  //   // Top right cluster
+  //   {
+  //     size: 18,
+  //     top: "5%",
+  //     right: "5%",
+  //     bg: "bg-green-500",
+  //     opacity: 0.15,
+  //     duration: 4.5,
+  //     delay: 4,
+  //   },
+  //   {
+  //     size: 22,
+  //     top: "20%",
+  //     right: "10%",
+  //     bg: "bg-yellow-500",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 5,
+  //   },
+  //   {
+  //     size: 26,
+  //     top: "15%",
+  //     right: "15%",
+  //     bg: "bg-blue-400",
+  //     opacity: 0.22,
+  //     duration: 3.5,
+  //     delay: 14,
+  //   },
+  //   {
+  //     size: 30,
+  //     top: "25%",
+  //     right: "8%",
+  //     bg: "bg-pink-400",
+  //     opacity: 0.2,
+  //     duration: 4,
+  //     delay: 15,
+  //   },
+
+  //   // Bottom left cluster
+  //   {
+  //     size: 18,
+  //     bottom: "5%",
+  //     left: "5%",
+  //     bg: "bg-purple-400",
+  //     opacity: 0.18,
+  //     duration: 3,
+  //     delay: 16,
+  //   },
+  //   {
+  //     size: 24,
+  //     bottom: "10%",
+  //     left: "10%",
+  //     bg: "bg-green-400",
+  //     opacity: 0.17,
+  //     duration: 3.5,
+  //     delay: 17,
+  //   },
+  //   {
+  //     size: 20,
+  //     bottom: "15%",
+  //     left: "7%",
+  //     bg: "bg-indigo-400",
+  //     opacity: 0.2,
+  //     duration: 3,
+  //     delay: 18,
+  //   },
+  //   {
+  //     size: 28,
+  //     bottom: "8%",
+  //     left: "12%",
+  //     bg: "bg-pink-600",
+  //     opacity: 0.25,
+  //     duration: 4,
+  //     delay: 19,
+  //   },
+
+  //   // Bottom right cluster
+  //   {
+  //     size: 16,
+  //     bottom: "5%",
+  //     right: "5%",
+  //     bg: "bg-green-600",
+  //     opacity: 0.15,
+  //     duration: 2.5,
+  //     delay: 20,
+  //   },
+  //   {
+  //     size: 20,
+  //     bottom: "10%",
+  //     right: "12%",
+  //     bg: "bg-blue-600",
+  //     opacity: 0.2,
+  //     duration: 3,
+  //     delay: 21,
+  //   },
+  //   {
+  //     size: 18,
+  //     bottom: "15%",
+  //     right: "10%",
+  //     bg: "bg-purple-600",
+  //     opacity: 0.22,
+  //     duration: 3.5,
+  //     delay: 22,
+  //   },
+  //   {
+  //     size: 24,
+  //     bottom: "8%",
+  //     right: "7%",
+  //     bg: "bg-indigo-600",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 23,
+  //   },
+
+  //   // Far left vertical
+  //   {
+  //     size: 22,
+  //     top: "40%",
+  //     left: "1%",
+  //     bg: "bg-yellow-700",
+  //     opacity: 0.25,
+  //     duration: 3.5,
+  //     delay: 6,
+  //   },
+  //   {
+  //     size: 22,
+  //     top: "60%",
+  //     left: "3%",
+  //     bg: "bg-yellow-500",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 7,
+  //   },
+  //   {
+  //     size: 22,
+  //     top: "80%",
+  //     left: "1%",
+  //     bg: "bg-yellow-300",
+  //     opacity: 0.25,
+  //     duration: 2.5,
+  //     delay: 8,
+  //   },
+
+  //   // Far right vertical
+  //   {
+  //     size: 22,
+  //     top: "40%",
+  //     right: "1%",
+  //     bg: "bg-yellow-500",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 9,
+  //   },
+  //   {
+  //     size: 22,
+  //     top: "60%",
+  //     right: "3%",
+  //     bg: "bg-yellow-700",
+  //     opacity: 0.25,
+  //     duration: 3.5,
+  //     delay: 10,
+  //   },
+  //   {
+  //     size: 22,
+  //     top: "80%",
+  //     right: "1%",
+  //     bg: "bg-yellow-300",
+  //     opacity: 0.25,
+  //     duration: 2.5,
+  //     delay: 11,
+  //   },
+
+  //   // More scattered (avoiding center area)
+  //   {
+  //     size: 22,
+  //     top: "15%",
+  //     left: "25%",
+  //     bg: "bg-yellow-500",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 12,
+  //   },
+  //   {
+  //     size: 22,
+  //     top: "75%",
+  //     right: "25%",
+  //     bg: "bg-yellow-500",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 13,
+  //   },
+  //   {
+  //     size: 18,
+  //     top: "85%",
+  //     left: "20%",
+  //     bg: "bg-yellow-400",
+  //     opacity: 0.22,
+  //     duration: 3.5,
+  //     delay: 24,
+  //   },
+  //   {
+  //     size: 20,
+  //     top: "10%",
+  //     right: "30%",
+  //     bg: "bg-yellow-300",
+  //     opacity: 0.25,
+  //     duration: 3,
+  //     delay: 25,
+  //   },
+  //   {
+  //     size: 24,
+  //     bottom: "15%",
+  //     left: "25%",
+  //     bg: "bg-yellow-600",
+  //     opacity: 0.28,
+  //     duration: 3.5,
+  //     delay: 26,
+  //   },
+  //   {
+  //     size: 18,
+  //     top: "30%",
+  //     right: "30%",
+  //     bg: "bg-yellow-700",
+  //     opacity: 0.22,
+  //     duration: 2.5,
+  //     delay: 27,
+  //   },
+  //   {
+  //     size: 16,
+  //     bottom: "20%",
+  //     left: "30%",
+  //     bg: "bg-yellow-500",
+  //     opacity: 0.18,
+  //     duration: 3,
+  //     delay: 28,
+  //   },
+
+  //   // Extra for more coverage around edges
+  //   {
+  //     size: 22,
+  //     top: "5%",
+  //     left: "40%",
+  //     bg: "bg-pink-400",
+  //     opacity: 0.15,
+  //     duration: 3,
+  //     delay: 29,
+  //   },
+  //   {
+  //     size: 22,
+  //     bottom: "5%",
+  //     right: "40%",
+  //     bg: "bg-green-400",
+  //     opacity: 0.18,
+  //     duration: 3,
+  //     delay: 30,
+  //   },
+  // ];
+  // const floatingCircles2 = Array.from({ length: 20 }, () => ({
+  //   size: Math.floor(Math.random() * 40) + 20,
+  //   top: Math.random() > 0.5 ? `${Math.floor(Math.random() * 90)}%` : undefined,
+  //   bottom:
+  //     Math.random() > 0.5 ? `${Math.floor(Math.random() * 90)}%` : undefined,
+  //   left:
+  //     Math.random() > 0.5 ? `${Math.floor(Math.random() * 90)}%` : undefined,
+  //   right:
+  //     Math.random() > 0.5 ? `${Math.floor(Math.random() * 90)}%` : undefined,
+  //   color: [
+  //     "#bfdbfe",
+  //     "#ddd6fe",
+  //     "#fbcfe8",
+  //     "#fef08a",
+  //     "#bbf7d0",
+  //     "#c7d2fe",
+  //     "#fecdd3",
+  //     "#fde68a",
+  //   ][Math.floor(Math.random() * 8)],
+  //   opacity: Math.random() * 0.4 + 0.2,
+  //   duration: Math.random() * 3 + 4,
+  //   delay: Math.random(),
+  // }));
+
+  const floatingCircles2 = generateFloatingCircles(100);
+
   const imageHoverClasses =
     "transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl";
 
@@ -434,7 +775,34 @@ const HomePage = () => {
       </section>
 
       {/* Injected Full Aamukh Content Section */}
-      <section className="w-full py-20 px-6 bg-gray-50 shadow-black">
+      <section className="relative w-full py-20 px-6 bg-gray-50 shadow-black">
+        {floatingCircles2.map(
+          (
+            { size, top, bottom, left, right, bg, opacity, duration, delay },
+            i
+          ) => (
+            <motion.div
+              key={i}
+              className={`absolute rounded-full ${bg}`}
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                top,
+                bottom,
+                left,
+                right,
+                opacity,
+              }}
+              animate={{ y: [0, 15, 0] }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                repeatType: "loop",
+                delay,
+              }}
+            />
+          )
+        )}
         <div className="max-w-6xl mx-auto space-y-20 text-[#132229]">
           {/* Block 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -559,49 +927,77 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-10 relative z-10"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#132229]">
+            <h2 className="text-3xl lg:text-4xl font-bold text-center text-[#132229]">
               Our Edge – Why We're Different
             </h2>
 
-            <div className="overflow-x-auto">
-              <div className="min-w-[600px] grid grid-cols-1 md:grid-cols-2 gap-4 bg-white border border-gray-200 rounded-lg">
-                <div className="p-6 space-y-4 border-b md:border-b-0 md:border-r border-gray-200">
-                  <h4 className="text-xl font-semibold text-[#5271ff]">
-                    What Others Do
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* What Others Do */}
+              <Card className="shadow-xl border border-gray-100">
+                <CardContent className="p-6 space-y-4">
+                  <h4 className="text-xl font-semibold text-[#5271ff] flex items-center gap-2">
+                    <Users className="text-[#5271ff]" /> What Others Do
                   </h4>
-                  <ul className="list-disc ml-5 text-[#132229] space-y-1">
-                    <li>Waits for traction</li>
-                    <li>Follows signals</li>
-                    <li>Deploys capital, then steps back</li>
-                    <li>Optimizes for returns</li>
-                    <li>Offers support when needed—not always-on</li>
+                  <ul className="space-y-3 text-[#132229]">
+                    <li className="flex items-start gap-2">
+                      <TrendingUp className="text-gray-500 mt-1" size={18} />
+                      Waits for traction
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Target className="text-gray-500 mt-1" size={18} />
+                      Follows signals
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="text-gray-500 mt-1" size={18} />
+                      Deploys capital, then steps back
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <TrendingUp className="text-gray-500 mt-1" size={18} />
+                      Optimizes for returns
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Handshake className="text-gray-500 mt-1" size={18} />
+                      Offers support when needed—not always-on
+                    </li>
                   </ul>
-                </div>
-                <div className="p-6 space-y-4">
-                  <h4 className="text-xl font-semibold text-[#5271ff]">
-                    What Aamukh Does
+                </CardContent>
+              </Card>
+
+              {/* What Aamukh Does */}
+              <Card className="shadow-xl border border-gray-100">
+                <CardContent className="p-6 space-y-4">
+                  <h4 className="text-xl font-semibold text-[#5271ff] flex items-center gap-2">
+                    <Lightbulb className="text-[#5271ff]" /> What Aamukh Does
                   </h4>
-                  <ul className="list-disc ml-5 text-[#132229] space-y-1">
-                    <li>Backs at idea or breakout moment</li>
-                    <li>Builds conviction through founder-first lens</li>
-                    <li>Optimizes for long-term founder relationships</li>
+                  <ul className="space-y-3 text-[#132229]">
+                    <li className="flex items-start gap-2">
+                      <Lightbulb className="text-gray-500 mt-1" size={18} />
+                      Backs at idea or breakout moment
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Users className="text-gray-500 mt-1" size={18} />
+                      Builds conviction through founder-first lens
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Handshake className="text-gray-500 mt-1" size={18} />
+                      Optimizes for long-term founder relationships
+                    </li>
                   </ul>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Snapshot of Our Model Section */}
-
       <section className="relative w-full py-20 bg-gray-50 overflow-hidden">
         {/* Multiple floating circles */}
         {floatingCircles.map(
           (
-            { size, top, bottom, left, right, bg, opacity, duration, delay },
+            { size, top, bottom, left, right, bg, opacity, duration, delay, color },
             i
           ) => (
             <motion.div
@@ -615,6 +1011,7 @@ const HomePage = () => {
                 left,
                 right,
                 opacity,
+                backgroundColor: color, // Instead of className
               }}
               animate={{ y: [0, 15, 0] }}
               transition={{
@@ -994,8 +1391,8 @@ const HomePage = () => {
                   viewport={{ once: true, amount: 0.3 }}
                   className="text-center space-y-4"
                 >
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                    <div className="w-8 h-8 bg-[#5271ff] rounded-full"></div>
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                    <div className="w-4 h-4 bg-[#5271ff] animate-ping rounded-full"></div>
                   </div>
                   <h3 className="text-2xl font-bold text-[#132229]">{title}</h3>
                   <p className="text-[#132229]">
@@ -1018,7 +1415,7 @@ const HomePage = () => {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.3 }}
-        className="w-full py-20 bg-[#5271ff]"
+        className="w-full py-14 bg-[#5271ff]"
       >
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl lg:text-5xl font-bold text-[#FFFFFF] mb-6">

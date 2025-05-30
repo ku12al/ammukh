@@ -46,7 +46,7 @@ const TeamPage = () => {
   const [renderKey, setRenderKey] = useState(0);
 
   useEffect(() => {
-    setRenderKey(prev => prev + 1);
+    setRenderKey((prev) => prev + 1);
   }, [location.pathname]);
   return (
     <div className="relative overflow-hidden">
@@ -72,24 +72,26 @@ const TeamPage = () => {
           {team.map((member, i) => (
             <motion.div
               key={member.name}
-              className="bg-white shadow-xl rounded-2xl p-6 text-left"
+              className="bg-white shadow-xl rounded-2xl p-6 text-left flex flex-col h-full"
               initial="hidden"
               animate="visible"
               custom={i + 2}
               variants={fadeUp}
             >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-32 h-32 rounded-full object-cover mx-auto mb-4"
-              />
-              <h3 className="text-xl font-bold text-center">{member.name}</h3>
-              <p className="text-sm text-gray-600 text-center mb-2">
-                {member.title}
-              </p>
-              <p className="text-gray-700 whitespace-pre-line text-sm text-center">
-                {member.bio}
-              </p>
+              <div className="flex-grow">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-32 h-32 rounded-full object-cover mx-auto mb-4"
+                />
+                <h3 className="text-xl font-bold text-center">{member.name}</h3>
+                <p className="text-sm text-gray-600 text-center mb-2">
+                  {member.title}
+                </p>
+                <p className="text-gray-700 whitespace-pre-line text-sm text-center">
+                  {member.bio}
+                </p>
+              </div>
               <div className="mt-4 flex justify-center">
                 <a
                   href={member.linkedin}

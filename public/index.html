@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aamukh Capital</title>
-    <script src="https://cdn.jsdelivr.net/npm/finisher-header@1.1.1/dist/finisher-header.min.js"></script>
 
-    <style>
-      body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow-x: hidden;
-      }
-      .finisher-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        z-index: -1; /* Pushes it behind your app */
-        pointer-events: none; /* Allow clicking through */
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Background Animation -->
-    <div class="finisher-header"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aamukh Capital</title>
+  <script src="https://cdn.jsdelivr.net/npm/finisher-header@1.1.1/dist/finisher-header.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-    <!-- Your React App -->
-    <div id="root"></div>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
 
-   <script src="/finisher-header.es5.min.js"></script>
+    .finisher-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      z-index: -1;
+      /* Pushes it behind your app */
+      pointer-events: none;
+      /* Allow clicking through */
+    }
+  </style>
+</head>
 
-    <script type="text/javascript">
-      new FinisherHeader({
-        count: 100,
-        size: { min: 2, max: 52, pulse: 0.1 },
-        speed: { x: { min: 0, max: 0.7 }, y: { min: 0, max: 1.1 } },
-        colors: {
-          background: "#ffffff",
-          particles: ["#fafba0", "#82d1f0", "#e8b080"]
-        },
-        blending: "lighten",
-        opacity: { center: 1, edge: 0 },
-        skew: -2,
-        shapes: ["c"]
-      });
-    </script>
-  </body>
+<body>
+  <!-- Background Animation -->
+  <div class="finisher-header"></div>
+
+  <!-- Your React App -->
+  <div id="root"></div>
+
+  <script src="/finisher-header.es5.min.js"></script>
+
+  <script type="text/javascript">
+    new FinisherHeader({
+      count: 100,
+      size: { min: 2, max: 52, pulse: 0.1 },
+      speed: { x: { min: 0, max: 0.7 }, y: { min: 0, max: 1.1 } },
+      colors: {
+        background: "#ffffff",
+        particles: ["#fafba0", "#82d1f0", "#e8b080"]
+      },
+      blending: "lighten",
+      opacity: { center: 1, edge: 0 },
+      skew: -2,
+      shapes: ["c"]
+    });
+  </script>
+</body>
+
 </html>

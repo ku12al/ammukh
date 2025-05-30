@@ -32,6 +32,8 @@ const ApplyPage = () => {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
+  const [arrowSize, setArrowSize] = useState(48)
+  const [debugInfo, setDebugInfo] = useState({}) // Add debug info
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -52,6 +54,25 @@ const ApplyPage = () => {
     comments: "",
     terms: false,
   })
+
+  // Debug: Add console logs to see if animation is working
+  useEffect(() => {
+    console.log("Component mounted, starting animation timer")
+    if (!isVisible) return
+
+    const timer = setInterval(() => {
+      setArrowSize((size) => {
+        const newSize = size === 48 ? 52 : 48
+        console.log("Arrow size changed to:", newSize)
+        return newSize
+      })
+    }, 1)
+
+    return () => {
+      console.log("Cleaning up animation timer")
+      clearInterval(timer)
+    }
+  }, [isVisible])
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -113,11 +134,28 @@ const ApplyPage = () => {
 
     const step = Math.floor(progress * (steps.length - 1))
     setCurrentStep(Math.max(0, Math.min(steps.length - 1, step)))
-  }, [calculateScrollProgress])
+
+    // Debug info
+    setDebugInfo({
+      scrollY: currentScrollY,
+      progress: Math.round(progress * 100),
+      direction: scrollDirection,
+      isVisible,
+      arrowSize,
+    })
+
+    console.log("Scroll event:", {
+      scrollY: currentScrollY,
+      progress: Math.round(progress * 100),
+      direction: scrollDirection,
+      isVisible,
+    })
+  }, [calculateScrollProgress, scrollDirection, isVisible, arrowSize])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        console.log("Intersection observer triggered:", entry.isIntersecting)
         setIsVisible(entry.isIntersecting)
       },
       { threshold: 0.1 },
@@ -125,34 +163,57 @@ const ApplyPage = () => {
 
     if (containerRef.current) {
       observer.observe(containerRef.current)
+      console.log("Observer attached to container")
     }
 
-    return () => observer.disconnect()
+    return () => {
+      console.log("Observer disconnected")
+      observer.disconnect()
+    }
   }, [])
 
   useEffect(() => {
+    console.log("Adding scroll listener")
     window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
 
     return () => {
+      console.log("Removing scroll listener")
       window.removeEventListener("scroll", handleScroll)
     }
   }, [handleScroll])
 
   const arrowProgress = scrollProgress * (steps.length - 1)
-  const arrowPosition = `${16 + scrollProgress * 75}%`
-  const progressLineWidth = `${scrollProgress * 75}%`
+  const arrowPosition = 16 + scrollProgress * 75
+  const progressLineWidth = scrollProgress * 75
 
   return (
-    <div className="min-h-screen bg-gray-50 relative">
+    <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb", position: "relative" }}>
+
       {/* Hero Section */}
-      <section className="w-full pt-28 sm:pt-20 lg:pt-24 py-16 sm:py-20 mt-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center space-y-8">
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
-              Apply for <span className="text-blue-600">Funding</span>
+      <section
+        style={{
+          width: "100%",
+          paddingTop: "7rem",
+          paddingBottom: "4rem",
+          marginTop: "5rem",
+          backgroundColor: "white",
+        }}
+      >
+        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div style={{ textAlign: "center" }}>
+            <h1 style={{ fontSize: "3rem", fontWeight: "bold", color: "#111827" }}>
+              Apply for <span style={{ color: "#2563eb" }}>Funding</span>
             </h1>
-            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+            <p
+              style={{
+                fontSize: "1.25rem",
+                color: "#4b5563",
+                maxWidth: "56rem",
+                margin: "2rem auto 0",
+                lineHeight: "1.75",
+              }}
+            >
               Ready to take your startup to the next level? We're looking for exceptional founders building the future.
               Tell us about your vision and let's explore how we can help you succeed.
             </p>
@@ -161,94 +222,209 @@ const ApplyPage = () => {
       </section>
 
       {/* Apply for Capital Section */}
-      <section className="w-full py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl lg:text-5xl font-bold text-center text-[#132229] mb-10">
+      <section style={{ width: "100%", padding: "5rem 0", backgroundColor: "white" }}>
+        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1.5rem" }}>
+          <h2
+            style={{
+              fontSize: "2.5rem",
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#132229",
+              marginBottom: "2.5rem",
+            }}
+          >
             We back belief—not just traction.
           </h2>
 
-          <p className="text-xl text-center text-[#132229] mb-16">Choose your path:</p>
+          <p style={{ fontSize: "1.25rem", textAlign: "center", color: "#132229", marginBottom: "4rem" }}>
+            Choose your path:
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="bg-[#f4f7f9] rounded-2xl p-6 shadow-md border border-gray-200">
-              <h3 className="text-2xl font-semibold text-[#132229] mb-4">🧪 Discovery Program</h3>
-              <ul className="text-[#132229] space-y-2 text-base mb-6">
-                <li>● ₹5–25L</li>
-                <li>● Non-dilutive</li>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2.5rem" }}>
+            <div
+              style={{
+                backgroundColor: "#f4f7f9",
+                borderRadius: "1rem",
+                padding: "1.5rem",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              <h3 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#132229", marginBottom: "1rem" }}>
+                🧪 Discovery Program
+              </h3>
+              <ul style={{ color: "#132229", marginBottom: "1.5rem" }}>
+                <li style={{ marginBottom: "0.5rem" }}>● ₹5–25L</li>
+                <li style={{ marginBottom: "0.5rem" }}>● Non-dilutive</li>
                 <li>● Best for student, idea-stage, or stealth founders</li>
               </ul>
               <a
                 href="#"
-                className="inline-block text-white bg-[#132229] hover:bg-black font-medium px-6 py-2 rounded-lg transition-all duration-300"
+                style={{
+                  display: "inline-block",
+                  color: "white",
+                  backgroundColor: "#132229",
+                  fontWeight: "500",
+                  padding: "0.5rem 1.5rem",
+                  borderRadius: "0.5rem",
+                  textDecoration: "none",
+                }}
               >
                 → Apply to Discovery
               </a>
             </div>
 
-            <div className="bg-[#f4f7f9] rounded-2xl p-6 shadow-md border border-gray-200">
-              <h3 className="text-2xl font-semibold text-[#132229] mb-4">📡 Signal Series</h3>
-              <ul className="text-[#132229] space-y-2 text-base mb-6">
-                <li>● ₹1–10 Cr</li>
-                <li>● For post-PMF, breakout-stage startups</li>
+            <div
+              style={{
+                backgroundColor: "#f4f7f9",
+                borderRadius: "1rem",
+                padding: "1.5rem",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              <h3 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#132229", marginBottom: "1rem" }}>
+                📡 Signal Series
+              </h3>
+              <ul style={{ color: "#132229", marginBottom: "1.5rem" }}>
+                <li style={{ marginBottom: "0.5rem" }}>● ₹1–10 Cr</li>
+                <li style={{ marginBottom: "0.5rem" }}>● For post-PMF, breakout-stage startups</li>
                 <li>● Must have early signs of momentum</li>
               </ul>
               <a
                 href="#"
-                className="inline-block text-white bg-[#132229] hover:bg-black font-medium px-6 py-2 rounded-lg transition-all duration-300"
+                style={{
+                  display: "inline-block",
+                  color: "white",
+                  backgroundColor: "#132229",
+                  fontWeight: "500",
+                  padding: "0.5rem 1.5rem",
+                  borderRadius: "0.5rem",
+                  textDecoration: "none",
+                }}
               >
                 → Apply to Signal Series
               </a>
             </div>
           </div>
 
-          <h3 className="text-3xl font-semibold text-center text-[#132229] mt-20 mb-10">
+          <h3
+            style={{
+              fontSize: "1.875rem",
+              fontWeight: "600",
+              textAlign: "center",
+              color: "#132229",
+              marginTop: "5rem",
+              marginBottom: "2.5rem",
+            }}
+          >
             What Happens After You Apply:
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-[#fdfdfd] rounded-2xl p-6 shadow-md border border-gray-200">
-              <p className="text-lg text-[#132229] font-medium">You'll hear from our team within 7 days</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
+            <div
+              style={{
+                backgroundColor: "#fdfdfd",
+                borderRadius: "1rem",
+                padding: "1.5rem",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              <p style={{ fontSize: "1.125rem", color: "#132229", fontWeight: "500" }}>
+                You'll hear from our team within 7 days
+              </p>
             </div>
 
-            <div className="bg-[#fdfdfd] rounded-2xl p-6 shadow-md border border-gray-200">
-              <p className="text-lg text-[#132229] font-medium">We'll ask for clarity, not a pitch deck</p>
+            <div
+              style={{
+                backgroundColor: "#fdfdfd",
+                borderRadius: "1rem",
+                padding: "1.5rem",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              <p style={{ fontSize: "1.125rem", color: "#132229", fontWeight: "500" }}>
+                We'll ask for clarity, not a pitch deck
+              </p>
             </div>
 
-            <div className="bg-[#fdfdfd] rounded-2xl p-6 shadow-md border border-gray-200">
-              <p className="text-lg text-[#132229] font-medium">You'll get honest feedback—no ghosting</p>
+            <div
+              style={{
+                backgroundColor: "#fdfdfd",
+                borderRadius: "1rem",
+                padding: "1.5rem",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              <p style={{ fontSize: "1.125rem", color: "#132229", fontWeight: "500" }}>
+                You'll get honest feedback—no ghosting
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Application Process */}
-      <section ref={containerRef} className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16">Our Process</h2>
+      <section ref={containerRef} style={{minHeight: "70vh", backgroundColor: "white" }}>
+        <div style={{ maxWidth: "78rem", margin: "0 auto", padding: "0 1.5rem" }}>
+          <h2 style={{ fontSize: "2.25rem", fontWeight: "bold", textAlign: "center", marginBottom: "4rem" }}>
+            Our Process
+          </h2>
 
           {/* Scroll Direction Indicator */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center space-x-2 bg-gray-100 rounded-full px-4 py-2">
-              <span className="text-sm font-medium text-gray-600">Scroll Direction:</span>
+          {/* <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                backgroundColor: "#f3f4f6",
+                borderRadius: "9999px",
+                padding: "0.5rem 1rem",
+              }}
+            >
+              <span style={{ fontSize: "0.875rem", fontWeight: "500", color: "#4b5563", marginRight: "0.5rem" }}>
+                Scroll Direction:
+              </span>
               <span
-                className={`text-sm font-bold ${scrollDirection === "down" ? "text-green-600" : "text-orange-600"}`}
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: "700",
+                  color: scrollDirection === "down" ? "#10b981" : "#f97316",
+                }}
               >
                 {scrollDirection === "down" ? "↓ Forward" : "↑ Backward"}
               </span>
             </div>
-          </div>
+          </div> */}
 
-          <div className="relative h-32">
+          <div style={{ position: "relative", height: "8rem" }}>
             {/* Connecting Line */}
-            <div className="absolute top-[15%] left-32 w-[75%] h-1 bg-gray-300 z-0" />
+            <div
+              style={{
+                position: "absolute",
+                top: "15%",
+                left: "12.5%",
+                width: "75%",
+                height: "4px",
+                backgroundColor: "#d1d5db",
+                zIndex: 0,
+              }}
+            />
 
             {/* Progress Line */}
             <div
-              className={`absolute top-[15%] left-32 h-1 z-10 transition-all duration-200 ease-out ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`}
               style={{
-                width: progressLineWidth,
+                position: "absolute",
+                top: "15%",
+                left: "12.5%",
+                height: "4px",
+                zIndex: 10,
+                transition: "all 0.3s ease-out",
+                opacity: isVisible ? 1 : 0,
+                width: `${progressLineWidth}%`,
                 background:
                   scrollDirection === "down"
                     ? "linear-gradient(to right, #3b82f6, #1d4ed8)"
@@ -258,88 +434,159 @@ const ApplyPage = () => {
 
             {/* Enhanced Moving Arrow */}
             <div
-              className={`absolute top-[15%] transform -translate-y-1/2 z-20 transition-all duration-200 ease-out ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`}
               style={{
-                left: arrowPosition,
+                position: "absolute",
+                top: "15%",
+                left:` ${arrowPosition}%`,
                 transform: `translateX(-50%) translateY(-50%) ${scrollDirection === "up" ? "rotate(180deg)" : "rotate(0deg)"}`,
+                zIndex: 20,
+                transition: "all 2s ease-out",
+                opacity: isVisible ? 1 : 0,
               }}
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg transition-colors duration-200 ${
-                  scrollDirection === "down"
-                    ? "bg-gradient-to-r from-blue-500 to-blue-700"
-                    : "bg-gradient-to-r from-orange-500 to-red-600"
-                }`}
+                style={{
+                  width: `${arrowSize}px`,
+                  height: `${arrowSize}px`,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "1.25rem",
+                  boxShadow: `0 0 20px ${scrollDirection === "down" ? "rgba(59, 130, 246, 0.6)" : "rgba(249, 115, 22, 0.6)"}`,
+                  backgroundColor: scrollDirection === "down" ? "#2563eb" : "#f97316",
+                  transition: "width 2s ease-out, height 1s ease-out, box-shadow 2s ease-out",
+                }}
               >
                 →
               </div>
             </div>
 
             {/* Step Circles */}
-            <div className="flex justify-between relative z-20">
+            <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 20 }}>
               {steps.map((step, idx) => (
-                <div key={idx} className="flex flex-col items-center w-1/4">
+                <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "25%" }}>
                   <div
-                    className={`w-10 h-10 border-4 rounded-full flex items-center justify-center font-bold transition-all duration-300 transform ${
-                      arrowProgress >= idx && isVisible
-                        ? `${
-                            scrollDirection === "down"
-                              ? "bg-blue-600 border-blue-600 text-white"
-                              : "bg-orange-500 border-orange-500 text-white"
-                          } scale-110 shadow-lg`
-                        : `${
-                            scrollDirection === "down"
-                              ? "border-blue-600 text-blue-600"
-                              : "border-orange-500 text-orange-500"
-                          } bg-white scale-100`
-                    }`}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderWidth: "4px",
+                      borderStyle: "solid",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: "bold",
+                      transition: "all 0.3s ease-out",
+                      transform: arrowProgress >= idx && isVisible ? "scale(1.1)" : "scale(1)",
+                      backgroundColor:
+                        arrowProgress >= idx && isVisible
+                          ? scrollDirection === "down"
+                            ? "#2563eb"
+                            : "#f97316"
+                          : "white",
+                      borderColor: scrollDirection === "down" ? "#2563eb" : "#f97316",
+                      color:
+                        arrowProgress >= idx && isVisible
+                          ? "white"
+                          : scrollDirection === "down"
+                            ? "#2563eb"
+                            : "#f97316",
+                      boxShadow: arrowProgress >= idx && isVisible ? "0 4px 6px -1px rgba(0, 0, 0, 0.1)" : "none",
+                    }}
                   >
                     {arrowProgress > idx && isVisible ? "✓" : step.number}
                   </div>
-                  <p className="mt-2 font-semibold text-center">{step.title}</p>
+                  <p style={{ marginTop: "0.5rem", fontWeight: "600", textAlign: "center" }}>{step.title}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Step Descriptions */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div
+            style={{
+              marginTop: "4rem",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
             {steps.map((step, idx) => (
               <div
                 key={idx}
-                className={`p-4 text-center transition-all duration-300 transform ${
-                  arrowProgress >= idx && isVisible ? "opacity-100 translate-y-0" : "opacity-50 translate-y-2"
-                }`}
+                style={{
+                  padding: "1rem",
+                  textAlign: "center",
+                  transition: "all 0.3s ease-out",
+                  transform: arrowProgress >= idx && isVisible ? "translateY(0)" : "translateY(0.5rem)",
+                  opacity: arrowProgress >= idx && isVisible ? 1 : 0.5,
+                }}
               >
-                <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                <p className="text-gray-600">{step.description}</p>
+                <h4 style={{ fontWeight: "bold", fontSize: "1.125rem", marginBottom: "0.5rem" }}>{step.title}</h4>
+                <p style={{ color: "#4b5563" }}>{step.description}</p>
               </div>
             ))}
           </div>
 
           {/* Progress Indicator */}
-          <div className="mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
-            <div className="inline-flex items-center space-x-2 bg-gray-100 rounded-full px-4 py-2">
-              <span className="text-sm font-medium text-gray-600">Progress:</span>
-              <span className={`text-sm font-bold ${scrollDirection === "down" ? "text-blue-600" : "text-orange-600"}`}>
+          {/* <div
+            style={{ marginTop: "3rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                backgroundColor: "#f3f4f6",
+                borderRadius: "9999px",
+                padding: "0.5rem 1rem",
+              }}
+            >
+              <span style={{ fontSize: "0.875rem", fontWeight: "500", color: "#4b5563", marginRight: "0.5rem" }}>
+                Progress:
+              </span>
+              <span
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: "700",
+                  color: scrollDirection === "down" ? "#2563eb" : "#f97316",
+                }}
+              >
                 {Math.round(scrollProgress * 100)}%
               </span>
             </div>
 
-            <div className="inline-flex items-center space-x-2 bg-gray-100 rounded-full px-4 py-2">
-              <span className="text-sm font-medium text-gray-600">Current Step:</span>
-              <span className={`text-sm font-bold ${scrollDirection === "down" ? "text-blue-600" : "text-orange-600"}`}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                backgroundColor: "#f3f4f6",
+                borderRadius: "9999px",
+                padding: "0.5rem 1rem",
+              }}
+            >
+              <span style={{ fontSize: "0.875rem", fontWeight: "500", color: "#4b5563", marginRight: "0.5rem" }}>
+                Current Step:
+              </span>
+              <span
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: "700",
+                  color: scrollDirection === "down" ? "#2563eb" : "#f97316",
+                }}
+              >
                 {currentStep + 1} of {steps.length}
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
+      {/* Rest of your form and FAQ sections remain the same */}
       {/* Application Form */}
-      <section className="w-full py-20 bg-white">
+      <section className="w-full bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="bg-white shadow-lg rounded-lg p-8 lg:p-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Funding Application</h2>
