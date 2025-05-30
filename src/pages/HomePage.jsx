@@ -657,7 +657,7 @@ const HomePage = () => {
   //   delay: Math.random(),
   // }));
 
-  const floatingCircles2 = generateFloatingCircles(100);
+  const floatingCircles2 = generateFloatingCircles(40);
 
   const imageHoverClasses =
     "transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl";
