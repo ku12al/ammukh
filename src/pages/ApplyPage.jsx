@@ -1,7 +1,60 @@
-"use client"
+"use client";
 
-import { useState, useRef, useCallback, useEffect } from "react"
+import { useState, useRef, useCallback, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  FaFlask,
+  FaSatelliteDish,
+  FaClock,
+  FaFileAlt,
+  FaCommentDots,
+} from "react-icons/fa";
+import { ChevronDown } from "lucide-react";
 
+const faqs = [
+  {
+    question: "What stage companies do you invest in?",
+    answer:
+      "We primarily invest in pre-seed and seed stage companies, though we occasionally consider idea-stage companies with exceptional founders and clear market opportunities.",
+  },
+  {
+    question: "What is your typical investment size?",
+    answer:
+      "Our typical investment ranges from ₹50 lakhs to ₹5 crores, depending on the stage, funding requirements, and growth potential of the company.",
+  },
+  {
+    question: "How long does the process take?",
+    answer:
+      "From application to final decision, our process typically takes 4-6 weeks. We aim to provide initial feedback within 2 weeks of receiving your application.",
+  },
+  {
+    question: "Do you only invest in Indian companies?",
+    answer:
+      "While we focus primarily on Indian startups and founders, we're open to considering companies with strong India connections or those planning to expand into the Indian market.",
+  },
+];
+
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.2, duration: 0.6, ease: "easeOut" },
+  }),
+};
 const steps = [
   {
     number: 1,
@@ -23,17 +76,26 @@ const steps = [
     title: "Decision",
     description: "Final decision and term sheet if we move forward",
   },
-]
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
 
 const ApplyPage = () => {
-  const containerRef = useRef(null)
-  const lastScrollY = useRef(0)
-  const [scrollDirection, setScrollDirection] = useState("down")
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const [currentStep, setCurrentStep] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
-  const [arrowSize, setArrowSize] = useState(48)
-  const [debugInfo, setDebugInfo] = useState({}) // Add debug info
+  const containerRef = useRef(null);
+  const lastScrollY = useRef(0);
+  const [scrollDirection, setScrollDirection] = useState("down");
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [arrowSize, setArrowSize] = useState(48);
+  const [debugInfo, setDebugInfo] = useState({}); // Add debug info
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -53,87 +115,92 @@ const ApplyPage = () => {
     pitchDeck: "",
     comments: "",
     terms: false,
-  })
+  });
 
   // Debug: Add console logs to see if animation is working
   useEffect(() => {
-    console.log("Component mounted, starting animation timer")
-    if (!isVisible) return
+    console.log("Component mounted, starting animation timer");
+    if (!isVisible) return;
 
     const timer = setInterval(() => {
       setArrowSize((size) => {
-        const newSize = size === 48 ? 52 : 48
-        console.log("Arrow size changed to:", newSize)
-        return newSize
-      })
-    }, 1)
+        const newSize = size === 48 ? 52 : 48;
+        console.log("Arrow size changed to:", newSize);
+        return newSize;
+      });
+    }, 1);
 
     return () => {
-      console.log("Cleaning up animation timer")
-      clearInterval(timer)
-    }
-  }, [isVisible])
+      console.log("Cleaning up animation timer");
+      clearInterval(timer);
+    };
+  }, [isVisible]);
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!formData.terms) {
-      alert("Please accept the terms and conditions")
-      return
+      alert("Please accept the terms and conditions");
+      return;
     }
-    console.log("Application submitted:", formData)
-    alert("Application submitted successfully! We'll review it and get back to you within 2 weeks.")
-  }
+    console.log("Application submitted:", formData);
+    alert(
+      "Application submitted successfully! We'll review it and get back to you within 2 weeks."
+    );
+  };
 
   const calculateScrollProgress = useCallback(() => {
-    if (!containerRef.current) return 0
+    if (!containerRef.current) return 0;
 
-    const rect = containerRef.current.getBoundingClientRect()
-    const windowHeight = window.innerHeight
-    const elementHeight = rect.height
+    const rect = containerRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const elementHeight = rect.height;
 
-    const elementTop = rect.top
-    const elementBottom = rect.bottom
+    const elementTop = rect.top;
+    const elementBottom = rect.bottom;
 
-    const startOffset = windowHeight * 0.8
-    const endOffset = windowHeight * 0.2
+    const startOffset = windowHeight * 0.8;
+    const endOffset = windowHeight * 0.2;
 
-    let progress = 0
+    let progress = 0;
 
     if (elementTop <= startOffset && elementBottom >= endOffset) {
-      const totalAnimationDistance = startOffset + elementHeight - endOffset
-      const currentPosition = startOffset - elementTop
-      progress = Math.max(0, Math.min(1, currentPosition / totalAnimationDistance))
+      const totalAnimationDistance = startOffset + elementHeight - endOffset;
+      const currentPosition = startOffset - elementTop;
+      progress = Math.max(
+        0,
+        Math.min(1, currentPosition / totalAnimationDistance)
+      );
     } else if (elementBottom < endOffset) {
-      progress = 1
+      progress = 1;
     }
 
-    return progress
-  }, [])
+    return progress;
+  }, []);
 
   const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY
+    const currentScrollY = window.scrollY;
 
     if (currentScrollY > lastScrollY.current) {
-      setScrollDirection("down")
+      setScrollDirection("down");
     } else if (currentScrollY < lastScrollY.current) {
-      setScrollDirection("up")
+      setScrollDirection("up");
     }
 
-    lastScrollY.current = currentScrollY
+    lastScrollY.current = currentScrollY;
 
-    const progress = calculateScrollProgress()
-    setScrollProgress(progress)
+    const progress = calculateScrollProgress();
+    setScrollProgress(progress);
 
-    const step = Math.floor(progress * (steps.length - 1))
-    setCurrentStep(Math.max(0, Math.min(steps.length - 1, step)))
+    const step = Math.floor(progress * (steps.length - 1));
+    setCurrentStep(Math.max(0, Math.min(steps.length - 1, step)));
 
     // Debug info
     setDebugInfo({
@@ -142,56 +209,65 @@ const ApplyPage = () => {
       direction: scrollDirection,
       isVisible,
       arrowSize,
-    })
+    });
 
     console.log("Scroll event:", {
       scrollY: currentScrollY,
       progress: Math.round(progress * 100),
       direction: scrollDirection,
       isVisible,
-    })
-  }, [calculateScrollProgress, scrollDirection, isVisible, arrowSize])
+    });
+  }, [calculateScrollProgress, scrollDirection, isVisible, arrowSize]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log("Intersection observer triggered:", entry.isIntersecting)
-        setIsVisible(entry.isIntersecting)
+        console.log("Intersection observer triggered:", entry.isIntersecting);
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 },
-    )
+      { threshold: 0.1 }
+    );
 
     if (containerRef.current) {
-      observer.observe(containerRef.current)
-      console.log("Observer attached to container")
+      observer.observe(containerRef.current);
+      console.log("Observer attached to container");
     }
 
     return () => {
-      console.log("Observer disconnected")
-      observer.disconnect()
-    }
-  }, [])
+      console.log("Observer disconnected");
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
-    console.log("Adding scroll listener")
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll()
+    console.log("Adding scroll listener");
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      console.log("Removing scroll listener")
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [handleScroll])
+      console.log("Removing scroll listener");
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
-  const arrowProgress = scrollProgress * (steps.length - 1)
-  const arrowPosition = 16 + scrollProgress * 75
-  const progressLineWidth = scrollProgress * 75
+  const arrowProgress = scrollProgress * (steps.length - 1);
+  const arrowPosition = 16 + scrollProgress * 75;
+  const progressLineWidth = scrollProgress * 75;
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb", position: "relative" }}>
-
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#f9fafb",
+        position: "relative",
+      }}
+    >
       {/* Hero Section */}
-      <section
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
         style={{
           width: "100%",
           paddingTop: "7rem",
@@ -200,31 +276,57 @@ const ApplyPage = () => {
           backgroundColor: "white",
         }}
       >
-        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ textAlign: "center" }}>
-            <h1 style={{ fontSize: "3rem", fontWeight: "bold", color: "#111827" }}>
-              Apply for <span style={{ color: "#2563eb" }}>Funding</span>
-            </h1>
-            <p
-              style={{
-                fontSize: "1.25rem",
-                color: "#4b5563",
-                maxWidth: "56rem",
-                margin: "2rem auto 0",
-                lineHeight: "1.75",
-              }}
-            >
-              Ready to take your startup to the next level? We're looking for exceptional founders building the future.
-              Tell us about your vision and let's explore how we can help you succeed.
-            </p>
-          </div>
+        <div
+          style={{
+            maxWidth: "80rem",
+            margin: "0 auto",
+            padding: "0 1.5rem",
+            textAlign: "center",
+          }}
+        >
+          <motion.h1
+            variants={fadeUp}
+            transition={{ delay: 0.1 }}
+            style={{
+              fontSize: "3rem",
+              fontWeight: "bold",
+              color: "#111827",
+            }}
+          >
+            Apply for <span style={{ color: "#2563eb" }}>Funding</span>
+          </motion.h1>
+
+          <motion.p
+            variants={fadeUp}
+            transition={{ delay: 0.3 }}
+            style={{
+              fontSize: "1.25rem",
+              color: "#4b5563",
+              maxWidth: "56rem",
+              margin: "2rem auto 0",
+              lineHeight: "1.75",
+            }}
+          >
+            Ready to take your startup to the next level? We're looking for
+            exceptional founders building the future. Tell us about your vision
+            and let's explore how we can help you succeed.
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Apply for Capital Section */}
-      <section style={{ width: "100%", padding: "5rem 0", backgroundColor: "white" }}>
-        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1.5rem" }}>
-          <h2
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        style={{ width: "100%", padding: "5rem 0", backgroundColor: "white" }}
+      >
+        <div
+          style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1.5rem" }}
+        >
+          <motion.h2
+            custom={0}
+            variants={fadeInUp}
             style={{
               fontSize: "2.5rem",
               fontWeight: "bold",
@@ -234,81 +336,110 @@ const ApplyPage = () => {
             }}
           >
             We back belief—not just traction.
-          </h2>
+          </motion.h2>
 
-          <p style={{ fontSize: "1.25rem", textAlign: "center", color: "#132229", marginBottom: "4rem" }}>
+          <motion.p
+            custom={1}
+            variants={fadeInUp}
+            style={{
+              fontSize: "1.25rem",
+              textAlign: "center",
+              color: "#132229",
+              marginBottom: "4rem",
+            }}
+          >
             Choose your path:
-          </p>
+          </motion.p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2.5rem" }}>
-            <div
-              style={{
-                backgroundColor: "#f4f7f9",
-                borderRadius: "1rem",
-                padding: "1.5rem",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
-                border: "1px solid #e5e7eb",
-              }}
-            >
-              <h3 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#132229", marginBottom: "1rem" }}>
-                🧪 Discovery Program
-              </h3>
-              <ul style={{ color: "#132229", marginBottom: "1.5rem" }}>
-                <li style={{ marginBottom: "0.5rem" }}>● ₹5–25L</li>
-                <li style={{ marginBottom: "0.5rem" }}>● Non-dilutive</li>
-                <li>● Best for student, idea-stage, or stealth founders</li>
-              </ul>
-              <a
-                href="#"
+          {/* Capital Cards */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "2.5rem",
+            }}
+          >
+            {[
+              {
+                title: "Discovery Program",
+                icon: <FaFlask size={28} style={{ marginRight: "0.5rem" }} />,
+                points: [
+                  "₹5–25L",
+                  "Non-dilutive",
+                  "Best for student, idea-stage, or stealth founders",
+                ],
+                linkText: "→ Apply to Discovery",
+              },
+              {
+                title: "Signal Series",
+                icon: (
+                  <FaSatelliteDish
+                    size={28}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                ),
+                points: [
+                  "₹1–10 Cr",
+                  "For post-PMF, breakout-stage startups",
+                  "Must have early signs of momentum",
+                ],
+                linkText: "→ Apply to Signal Series",
+              },
+            ].map((card, index) => (
+              <motion.div
+                key={index}
+                custom={index + 2}
+                variants={fadeInUp}
                 style={{
-                  display: "inline-block",
-                  color: "white",
-                  backgroundColor: "#132229",
-                  fontWeight: "500",
-                  padding: "0.5rem 1.5rem",
-                  borderRadius: "0.5rem",
-                  textDecoration: "none",
+                  backgroundColor: "#f4f7f9",
+                  borderRadius: "1rem",
+                  padding: "1.5rem",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                  border: "1px solid #e5e7eb",
                 }}
               >
-                → Apply to Discovery
-              </a>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: "#f4f7f9",
-                borderRadius: "1rem",
-                padding: "1.5rem",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
-                border: "1px solid #e5e7eb",
-              }}
-            >
-              <h3 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#132229", marginBottom: "1rem" }}>
-                📡 Signal Series
-              </h3>
-              <ul style={{ color: "#132229", marginBottom: "1.5rem" }}>
-                <li style={{ marginBottom: "0.5rem" }}>● ₹1–10 Cr</li>
-                <li style={{ marginBottom: "0.5rem" }}>● For post-PMF, breakout-stage startups</li>
-                <li>● Must have early signs of momentum</li>
-              </ul>
-              <a
-                href="#"
-                style={{
-                  display: "inline-block",
-                  color: "white",
-                  backgroundColor: "#132229",
-                  fontWeight: "500",
-                  padding: "0.5rem 1.5rem",
-                  borderRadius: "0.5rem",
-                  textDecoration: "none",
-                }}
-              >
-                → Apply to Signal Series
-              </a>
-            </div>
+                <h3
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "1.5rem",
+                    fontWeight: "600",
+                    color: "#132229",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  {card.icon}
+                  {card.title}
+                </h3>
+                <ul style={{ color: "#132229", marginBottom: "1.5rem" }}>
+                  {card.points.map((point, i) => (
+                    <li key={i} style={{ marginBottom: "0.5rem" }}>
+                      ● {point}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#"
+                  style={{
+                    display: "inline-block",
+                    color: "white",
+                    backgroundColor: "#132229",
+                    fontWeight: "500",
+                    padding: "0.5rem 1.5rem",
+                    borderRadius: "0.5rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  {card.linkText}
+                </a>
+              </motion.div>
+            ))}
           </div>
 
-          <h3
+          {/* What Happens Next */}
+          <motion.h3
+            custom={4}
+            variants={fadeInUp}
             style={{
               fontSize: "1.875rem",
               fontWeight: "600",
@@ -319,58 +450,81 @@ const ApplyPage = () => {
             }}
           >
             What Happens After You Apply:
-          </h3>
+          </motion.h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
-            <div
-              style={{
-                backgroundColor: "#fdfdfd",
-                borderRadius: "1rem",
-                padding: "1.5rem",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
-                border: "1px solid #e5e7eb",
-              }}
-            >
-              <p style={{ fontSize: "1.125rem", color: "#132229", fontWeight: "500" }}>
-                You'll hear from our team within 7 days
-              </p>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: "#fdfdfd",
-                borderRadius: "1rem",
-                padding: "1.5rem",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
-                border: "1px solid #e5e7eb",
-              }}
-            >
-              <p style={{ fontSize: "1.125rem", color: "#132229", fontWeight: "500" }}>
-                We'll ask for clarity, not a pitch deck
-              </p>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: "#fdfdfd",
-                borderRadius: "1rem",
-                padding: "1.5rem",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
-                border: "1px solid #e5e7eb",
-              }}
-            >
-              <p style={{ fontSize: "1.125rem", color: "#132229", fontWeight: "500" }}>
-                You'll get honest feedback—no ghosting
-              </p>
-            </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gap: "1.5rem",
+              padding: "0 1rem", // Padding for smaller screens
+            }}
+          >
+            {[
+              {
+                text: "You'll hear from our team within 7 days",
+                icon: <FaClock size={36} color="#2563eb" />,
+              },
+              {
+                text: "We'll ask for clarity, not a pitch deck",
+                icon: <FaFileAlt size={36} color="#2563eb" />,
+              },
+              {
+                text: "You'll get honest feedback—no ghosting",
+                icon: <FaCommentDots size={36} color="#2563eb" />,
+              },
+            ].map((step, i) => (
+              <motion.div
+                key={i}
+                custom={5 + i}
+                variants={fadeInUp}
+                style={{
+                  backgroundColor: "#fdfdfd",
+                  borderRadius: "1rem",
+                  padding: "2rem 1rem",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
+                  border: "1px solid #e5e7eb",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  minHeight: "200px",
+                }}
+              >
+                <div style={{ marginBottom: "1rem" }}>{step.icon}</div>
+                <p
+                  style={{
+                    fontSize: "1.125rem",
+                    color: "#132229",
+                    fontWeight: "500",
+                    lineHeight: "1.5",
+                  }}
+                >
+                  {step.text}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Application Process */}
-      <section ref={containerRef} style={{minHeight: "70vh", backgroundColor: "white" }}>
-        <div style={{ maxWidth: "78rem", margin: "0 auto", padding: "0 1.5rem" }}>
-          <h2 style={{ fontSize: "2.25rem", fontWeight: "bold", textAlign: "center", marginBottom: "4rem" }}>
+      <section
+        ref={containerRef}
+        style={{ minHeight: "70vh", backgroundColor: "white" }}
+      >
+        <div
+          style={{ maxWidth: "78rem", margin: "0 auto", padding: "0 1.5rem" }}
+        >
+          <h2
+            style={{
+              fontSize: "2.25rem",
+              fontWeight: "bold",
+              textAlign: "center",
+              marginBottom: "4rem",
+            }}
+          >
             Our Process
           </h2>
 
@@ -437,8 +591,10 @@ const ApplyPage = () => {
               style={{
                 position: "absolute",
                 top: "15%",
-                left:` ${arrowPosition}%`,
-                transform: `translateX(-50%) translateY(-50%) ${scrollDirection === "up" ? "rotate(180deg)" : "rotate(0deg)"}`,
+                left: ` ${arrowPosition}%`,
+                transform: `translateX(-50%) translateY(-50%) ${
+                  scrollDirection === "up" ? "rotate(180deg)" : "rotate(0deg)"
+                }`,
                 zIndex: 20,
                 transition: "all 2s ease-out",
                 opacity: isVisible ? 1 : 0,
@@ -455,9 +611,15 @@ const ApplyPage = () => {
                   color: "white",
                   fontWeight: "bold",
                   fontSize: "1.25rem",
-                  boxShadow: `0 0 20px ${scrollDirection === "down" ? "rgba(59, 130, 246, 0.6)" : "rgba(249, 115, 22, 0.6)"}`,
-                  backgroundColor: scrollDirection === "down" ? "#2563eb" : "#f97316",
-                  transition: "width 2s ease-out, height 1s ease-out, box-shadow 2s ease-out",
+                  boxShadow: `0 0 20px ${
+                    scrollDirection === "down"
+                      ? "rgba(59, 130, 246, 0.6)"
+                      : "rgba(249, 115, 22, 0.6)"
+                  }`,
+                  backgroundColor:
+                    scrollDirection === "down" ? "#2563eb" : "#f97316",
+                  transition:
+                    "width 2s ease-out, height 1s ease-out, box-shadow 2s ease-out",
                 }}
               >
                 →
@@ -465,9 +627,24 @@ const ApplyPage = () => {
             </div>
 
             {/* Step Circles */}
-            <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 20 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                position: "relative",
+                zIndex: 20,
+              }}
+            >
               {steps.map((step, idx) => (
-                <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "25%" }}>
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: "25%",
+                  }}
+                >
                   <div
                     style={{
                       width: "40px",
@@ -480,26 +657,41 @@ const ApplyPage = () => {
                       justifyContent: "center",
                       fontWeight: "bold",
                       transition: "all 0.3s ease-out",
-                      transform: arrowProgress >= idx && isVisible ? "scale(1.1)" : "scale(1)",
+                      transform:
+                        arrowProgress >= idx && isVisible
+                          ? "scale(1.1)"
+                          : "scale(1)",
                       backgroundColor:
                         arrowProgress >= idx && isVisible
                           ? scrollDirection === "down"
                             ? "#2563eb"
                             : "#f97316"
                           : "white",
-                      borderColor: scrollDirection === "down" ? "#2563eb" : "#f97316",
+                      borderColor:
+                        scrollDirection === "down" ? "#2563eb" : "#f97316",
                       color:
                         arrowProgress >= idx && isVisible
                           ? "white"
                           : scrollDirection === "down"
-                            ? "#2563eb"
-                            : "#f97316",
-                      boxShadow: arrowProgress >= idx && isVisible ? "0 4px 6px -1px rgba(0, 0, 0, 0.1)" : "none",
+                          ? "#2563eb"
+                          : "#f97316",
+                      boxShadow:
+                        arrowProgress >= idx && isVisible
+                          ? "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                          : "none",
                     }}
                   >
                     {arrowProgress > idx && isVisible ? "✓" : step.number}
                   </div>
-                  <p style={{ marginTop: "0.5rem", fontWeight: "600", textAlign: "center" }}>{step.title}</p>
+                  <p
+                    style={{
+                      marginTop: "0.5rem",
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    {step.title}
+                  </p>
                 </div>
               ))}
             </div>
@@ -521,11 +713,22 @@ const ApplyPage = () => {
                   padding: "1rem",
                   textAlign: "center",
                   transition: "all 0.3s ease-out",
-                  transform: arrowProgress >= idx && isVisible ? "translateY(0)" : "translateY(0.5rem)",
+                  transform:
+                    arrowProgress >= idx && isVisible
+                      ? "translateY(0)"
+                      : "translateY(0.5rem)",
                   opacity: arrowProgress >= idx && isVisible ? 1 : 0.5,
                 }}
               >
-                <h4 style={{ fontWeight: "bold", fontSize: "1.125rem", marginBottom: "0.5rem" }}>{step.title}</h4>
+                <h4
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "1.125rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  {step.title}
+                </h4>
                 <p style={{ color: "#4b5563" }}>{step.description}</p>
               </div>
             ))}
@@ -586,266 +789,202 @@ const ApplyPage = () => {
 
       {/* Rest of your form and FAQ sections remain the same */}
       {/* Application Form */}
-      <section className="w-full bg-white">
+      <section className="w-full bg-white py-12">
         <div className="max-w-4xl mx-auto px-6">
           <div className="bg-white shadow-lg rounded-lg p-8 lg:p-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Funding Application</h2>
-            <form onSubmit={handleSubmit} className="space-y-8">
-              {/* Company Information */}
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+              Funding Application
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-10">
+              {/* --- Company Information --- */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-gray-900">Company Information</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Company Information
+                </h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
-                    <input
-                      type="text"
-                      name="companyName"
-                      value={formData.companyName}
-                      onChange={handleInputChange}
-                      placeholder="Your company name"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Website</label>
-                    <input
-                      type="url"
-                      name="website"
-                      value={formData.website}
-                      onChange={handleInputChange}
-                      placeholder="https://yourcompany.com"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Industry *</label>
-                    <select
-                      name="industry"
-                      value={formData.industry}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">Select industry</option>
-                      <option value="fintech">FinTech</option>
-                      <option value="edtech">EdTech</option>
-                      <option value="healthtech">HealthTech</option>
-                      <option value="ecommerce">E-commerce</option>
-                      <option value="saas">SaaS</option>
-                      <option value="ai">AI/ML</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Stage *</label>
-                    <select
-                      name="stage"
-                      value={formData.stage}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">Select stage</option>
-                      <option value="idea">Idea Stage</option>
-                      <option value="mvp">MVP</option>
-                      <option value="pre-seed">Pre-Seed</option>
-                      <option value="seed">Seed</option>
-                      <option value="series-a">Series A</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Company Description *</label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
+                  <Input
+                    label="Company Name *"
+                    name="companyName"
+                    value={formData.companyName}
                     onChange={handleInputChange}
-                    placeholder="Describe what your company does, the problem you're solving, and your solution..."
-                    rows={4}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Your company name"
                   />
-                </div>
-              </div>
-
-              {/* Founder Information */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-gray-900">Founder Information</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Founder Name *</label>
-                    <input
-                      type="text"
-                      name="founderName"
-                      value={formData.founderName}
-                      onChange={handleInputChange}
-                      placeholder="Your full name"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="your.email@example.com"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="+91 9876543210"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
-                    <input
-                      type="url"
-                      name="linkedin"
-                      value={formData.linkedin}
-                      onChange={handleInputChange}
-                      placeholder="https://linkedin.com/in/yourprofile"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Background & Experience *</label>
-                  <textarea
-                    name="background"
-                    value={formData.background}
-                    onChange={handleInputChange}
-                    placeholder="Tell us about your background, previous experience, and what makes you the right person to solve this problem..."
-                    rows={4}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
-
-              {/* Business Details */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-gray-900">Business Details</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Funding Amount Sought *</label>
-                    <select
-                      name="fundingAmount"
-                      value={formData.fundingAmount}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">Select amount</option>
-                      <option value="under-50k">Under ₹50 Lakhs</option>
-                      <option value="50k-1cr">₹50 Lakhs - ₹1 Crore</option>
-                      <option value="1cr-5cr">₹1 Crore - ₹5 Crores</option>
-                      <option value="5cr-10cr">₹5 Crores - ₹10 Crores</option>
-                      <option value="above-10cr">Above ₹10 Crores</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Current Revenue (Monthly)</label>
-                    <input
-                      type="text"
-                      name="revenue"
-                      value={formData.revenue}
-                      onChange={handleInputChange}
-                      placeholder="₹0 if pre-revenue"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Use of Funds *</label>
-                  <textarea
-                    name="useOfFunds"
-                    value={formData.useOfFunds}
-                    onChange={handleInputChange}
-                    placeholder="How will you use the funding? (e.g., product development, marketing, hiring, etc.)"
-                    rows={3}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Traction & Milestones</label>
-                  <textarea
-                    name="traction"
-                    value={formData.traction}
-                    onChange={handleInputChange}
-                    placeholder="Share key metrics, user growth, partnerships, or other significant milestones..."
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
-
-              {/* Additional Information */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-gray-900">Additional Information</h3>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Pitch Deck URL</label>
-                  <input
+                  <Input
+                    label="Website"
+                    name="website"
                     type="url"
-                    name="pitchDeck"
-                    value={formData.pitchDeck}
+                    value={formData.website}
                     onChange={handleInputChange}
-                    placeholder="Google Drive, Dropbox, or other shareable link"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Please ensure the link is publicly accessible</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Additional Comments</label>
-                  <textarea
-                    name="comments"
-                    value={formData.comments}
-                    onChange={handleInputChange}
-                    placeholder="Anything else you'd like us to know about your company or this application..."
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="https://yourcompany.com"
                   />
                 </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Select
+                    label="Industry *"
+                    name="industry"
+                    value={formData.industry}
+                    onChange={handleInputChange}
+                    required
+                    options={[
+                      { label: "FinTech", value: "fintech" },
+                      { label: "EdTech", value: "edtech" },
+                      { label: "HealthTech", value: "healthtech" },
+                      { label: "E-commerce", value: "ecommerce" },
+                      { label: "SaaS", value: "saas" },
+                      { label: "AI/ML", value: "ai" },
+                      { label: "Other", value: "other" },
+                    ]}
+                  />
+                  <Select
+                    label="Stage *"
+                    name="stage"
+                    value={formData.stage}
+                    onChange={handleInputChange}
+                    required
+                    options={[
+                      { label: "Idea Stage", value: "idea" },
+                      { label: "MVP", value: "mvp" },
+                      { label: "Pre-Seed", value: "pre-seed" },
+                      { label: "Seed", value: "seed" },
+                      { label: "Series A", value: "series-a" },
+                    ]}
+                  />
+                </div>
+                <Textarea
+                  label="Company Description *"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Describe what your company does..."
+                />
               </div>
 
-              {/* Terms and Submit */}
+              {/* --- Founder Information --- */}
               <div className="space-y-6">
-                <div className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    name="terms"
-                    checked={formData.terms}
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Founder Information
+                </h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Input
+                    label="Founder Name *"
+                    name="founderName"
+                    value={formData.founderName}
                     onChange={handleInputChange}
-                    className="mt-1"
                     required
+                    placeholder="Your full name"
                   />
-                  <label htmlFor="terms" className="text-sm text-gray-700 leading-relaxed">
-                    I agree to the terms and conditions and privacy policy. I understand that submitting this
-                    application does not guarantee funding and that Aamukh Capital will review my application and
-                    respond within 2 weeks.
-                  </label>
+                  <Input
+                    label="Email *"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="you@example.com"
+                  />
                 </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Input
+                    label="Phone *"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="+91 9876543210"
+                  />
+                  <Input
+                    label="LinkedIn Profile"
+                    name="linkedin"
+                    type="url"
+                    value={formData.linkedin}
+                    onChange={handleInputChange}
+                    placeholder="https://linkedin.com/in/yourprofile"
+                  />
+                </div>
+                <Textarea
+                  label="Background & Experience *"
+                  name="background"
+                  value={formData.background}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Tell us about your background..."
+                />
+              </div>
+
+              {/* --- Business Details --- */}
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Business Details
+                </h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Select
+                    label="Funding Amount Sought *"
+                    name="fundingAmount"
+                    value={formData.fundingAmount}
+                    onChange={handleInputChange}
+                    required
+                    options={[
+                      { label: "Under ₹50 Lakhs", value: "under-50k" },
+                      { label: "₹50 Lakhs - ₹1 Crore", value: "50k-1cr" },
+                      { label: "₹1 Crore - ₹5 Crores", value: "1cr-5cr" },
+                      { label: "₹5 Crores - ₹10 Crores", value: "5cr-10cr" },
+                      { label: "Above ₹10 Crores", value: "above-10cr" },
+                    ]}
+                  />
+                  <Input
+                    label="Current Revenue (Monthly)"
+                    name="revenue"
+                    value={formData.revenue}
+                    onChange={handleInputChange}
+                    placeholder="₹0 if pre-revenue"
+                  />
+                </div>
+                <Textarea
+                  label="Use of Funds *"
+                  name="useOfFunds"
+                  value={formData.useOfFunds}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="How will you use the funding?"
+                />
+                <Textarea
+                  label="Traction & Milestones"
+                  name="traction"
+                  value={formData.traction}
+                  onChange={handleInputChange}
+                  placeholder="Share key metrics or milestones..."
+                />
+              </div>
+
+              {/* --- Additional Information --- */}
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Additional Information
+                </h3>
+                <Input
+                  label="Pitch Deck URL"
+                  name="pitchDeck"
+                  type="url"
+                  value={formData.pitchDeck}
+                  onChange={handleInputChange}
+                  placeholder="Drive or Dropbox link"
+                />
+                <Textarea
+                  label="Additional Comments"
+                  name="comments"
+                  value={formData.comments}
+                  onChange={handleInputChange}
+                  placeholder="Anything else you'd like to add..."
+                />
+              </div>
+
+              <div className="pt-6 text-center">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-medium rounded-lg transition-colors"
+                  className="bg-blue-600 text-white font-medium py-3 px-6 rounded-md hover:bg-blue-700 transition"
                 >
                   Submit Application
                 </button>
@@ -856,43 +995,117 @@ const ApplyPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="w-full py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">Frequently Asked Questions</h2>
-          <div className="space-y-8">
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">What stage companies do you invest in?</h3>
-              <p className="text-gray-700">
-                We primarily invest in pre-seed and seed stage companies, though we occasionally consider idea-stage
-                companies with exceptional founders and clear market opportunities.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">What is your typical investment size?</h3>
-              <p className="text-gray-700">
-                Our typical investment ranges from ₹50 lakhs to ₹5 crores, depending on the stage, funding requirements,
-                and growth potential of the company.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">How long does the process take?</h3>
-              <p className="text-gray-700">
-                From application to final decision, our process typically takes 4-6 weeks. We aim to provide initial
-                feedback within 2 weeks of receiving your application.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Do you only invest in Indian companies?</h3>
-              <p className="text-gray-700">
-                While we focus primarily on Indian startups and founders, we're open to considering companies with
-                strong India connections or those planning to expand into the Indian market.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
-}
+      <section className="w-full py-20 bg-gray-50">
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl font-bold text-gray-900 text-center mb-16"
+        >
+          Frequently Asked Questions
+        </motion.h2>
 
-export default ApplyPage
+        <div className="space-y-8">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUpVariant}
+              className="bg-white rounded-xl p-6 shadow-lg flex items-start gap-4"
+            >
+              <ChevronDown className="text-indigo-600 mt-1" />
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {faq.question}
+                </h3>
+                <p className="text-gray-700">{faq.answer}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+    </div>
+  );
+};
+
+export default ApplyPage;
+
+
+// ----- Reusable Input and Textarea Components -----
+const Input = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  placeholder,
+  required,
+}) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">
+      {label}
+    </label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      placeholder={placeholder}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+);
+
+const Textarea = ({
+  label,
+  name,
+  value,
+  onChange,
+  placeholder,
+  required,
+  rows = 4,
+}) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">
+      {label}
+    </label>
+    <textarea
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      placeholder={placeholder}
+      rows={rows}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+);
+
+const Select = ({ label, name, value, onChange, options, required }) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">
+      {label}
+    </label>
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option value="">Select</option>
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
+  </div>
+);
