@@ -34,9 +34,12 @@ const Footer = () => {
           <h3 className="text-lg font-semibold border-l-4 border-blue-500 pl-2 mb-4">Quick Links</h3>
           <ul className="space-y-2 text-gray-300">
             <li><a href="/about" className="hover:text-white">About Us</a></li>
-            <li><a href="/services" className="hover:text-white">Our Services</a></li>
-            <li><a href="/blog" className="hover:text-white">Blog</a></li>
+            {/* <li><a href="/services" className="hover:text-white">Our Services</a></li> */}
+            {/* <li><a href="/blog" className="hover:text-white">Blog</a></li> */}
             <li><a href="/contact" className="hover:text-white">Contact</a></li>
+            <li><a href="/apply" className="hover:text-white">Apply</a></li>
+            <li><a href="/teams" className="hover:text-white">Teams</a></li>
+
           </ul>
         </motion.div>
         <motion.div
@@ -46,9 +49,9 @@ const Footer = () => {
         >
           <h3 className="text-lg font-semibold border-l-4 border-blue-500 pl-2 mb-4">Contact Us</h3>
           <ul className="space-y-2 text-gray-300">
-            <li className="flex items-center"><FaMapMarkerAlt className="mr-2" />123 Finance Street, Indore, MP, India</li>
-            <li className="flex items-center"><FaPhoneAlt className="mr-2" />+91 98765 43210</li>
-            <li className="flex items-center"><FaEnvelope className="mr-2" />info@aamukhcapital.com</li>
+            <li className="flex items-center"><FaMapMarkerAlt className="mr-2" />Gurugram, India</li>
+            <li className="flex items-center"><FaPhoneAlt className="mr-2" />+91 9302994828</li>
+            <li className="flex items-center"><FaEnvelope className="mr-2" />aamukhcapital@gmail.com</li>
           </ul>
         </motion.div>
       </div>

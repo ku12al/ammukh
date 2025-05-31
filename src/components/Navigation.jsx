@@ -9,12 +9,12 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 z-50 w-full bg-white border-b shadow-md border-gray-100 px-6 py-4">
+    <nav className="fixed top-0 left-0 z-50 w-full bg-white border-b shadow-md border-gray-100 px-6 py-4 transition-all duration-300">
       <div className="max-w-8xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link
           to="/"
-          className="font-black min-w-[35%] h-[50px] flex justify-start items-center"
+          className="font-black min-w-[35%] h-[50px] flex justify-start items-center transform transition-transform hover:rotate-[-2deg]"
         >
           <img
             src="/Logo-White.png"
@@ -29,11 +29,13 @@ const Navigation = () => {
             <Link
               key={href}
               to={href}
-              className={`text-lg pb-1 border-b-2 ${
+              className={`relative text-lg pb-1 transition-all duration-300 
+              ${
                 location.pathname === href
-                  ? "text-blue-600 font-bold border-blue-600"
-                  : "text-gray-700 hover:text-blue-600 border-transparent hover:border-blue-400"
-              } transition-colors`}
+                  ? "text-blue-600 font-bold after:w-full"
+                  : "text-gray-700 hover:text-blue-600 after:w-0 hover:after:w-full"
+              } 
+              after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300`}
             >
               {href === "/"
                 ? "Home"
@@ -42,7 +44,7 @@ const Navigation = () => {
           ))}
 
           <Link to="/apply">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transform transition-transform hover:scale-105 hover:shadow-lg">
               APPLY
             </Button>
           </Link>
@@ -52,7 +54,7 @@ const Navigation = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-700 hover:text-blue-600 focus:outline-none"
+            className="text-gray-700 hover:text-blue-600 focus:outline-none transition-transform hover:scale-110"
           >
             <svg
               className="w-6 h-6"
@@ -73,43 +75,24 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-gray-100">
+        <div className="md:hidden mt-4 pb-4 border-t border-gray-100 animate-slide-down">
           <div className="flex flex-col space-y-4 pt-4">
-            <Link
-              to="/"
-              className={`text-lg ${
-                location.pathname === "/"
-                  ? "text-blue-600 font-medium"
-                  : "text-gray-700"
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className={`text-lg ${
-                location.pathname === "/about"
-                  ? "text-blue-600 font-medium"
-                  : "text-gray-700"
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className={`text-lg ${
-                location.pathname === "/contact"
-                  ? "text-blue-600 font-medium"
-                  : "text-gray-700"
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Contact
-            </Link>
+            {["/", "/about", "/contact"].map((path) => (
+              <Link
+                key={path}
+                to={path}
+                className={`text-lg transition-all duration-300 ${
+                  location.pathname === path
+                    ? "text-blue-600 font-medium"
+                    : "text-gray-700 hover:text-blue-600"
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {path === "/" ? "Home" : path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}
+              </Link>
+            ))}
             <Link to="/apply" onClick={() => setIsMobileMenuOpen(false)}>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium w-full">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium w-full transform transition-transform hover:scale-105 hover:shadow-lg">
                 APPLY
               </button>
             </Link>

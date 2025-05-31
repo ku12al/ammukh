@@ -5,24 +5,26 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import ApplyPage from "./pages/ApplyPage";
 import TeamPage from "./pages/TeamPage";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 import "./App.css";
 
 function App() {
   return (
     <Router>
-      {/* Wrapper */}
-      <div className="relative min-h-screen overflow-hidden">
-        {/* Navigation and Pages */}
+      <ScrollToTop />
+      <div className="relative min-h-screen overflow-hidden flex flex-col">
         <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/apply" element={<ApplyPage />} />
-          <Route path="/teams" element={<TeamPage />} />
-        </Routes>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/apply" element={<ApplyPage />} />
+            <Route path="/teams" element={<TeamPage />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>

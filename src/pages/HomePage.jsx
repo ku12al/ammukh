@@ -633,6 +633,8 @@ const HomePage = () => {
   //     delay: 30,
   //   },
   // ];
+
+
   // const floatingCircles2 = Array.from({ length: 20 }, () => ({
   //   size: Math.floor(Math.random() * 40) + 20,
   //   top: Math.random() > 0.5 ? `${Math.floor(Math.random() * 90)}%` : undefined,
@@ -839,11 +841,11 @@ const HomePage = () => {
             <motion.img
               src="https://cdn.prod.website-files.com/59ad2221052e560001d6401f/5f04429b9d8d7d9d1273e2db_Why_We_Exist_01.png"
               alt="Why We Exist"
-              className={`rounded-xl ${imageHoverClasses}`}
+              className={`rounded-xl order-1 lg:order-none ${imageHoverClasses}`}
               initial={{ opacity: 0, x: 80 }}
               whileInView={{ opacity: 1, x: 1 }}
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             />
           </div>
@@ -854,7 +856,7 @@ const HomePage = () => {
             <motion.img
               src="https://thumbs.dreamstime.com/b/fund-raising-money-donation-illustration-charity-tiny-people-character-putting-huge-glass-jar-donate-male-stand-225299539.jpg"
               alt="Conviction Platform"
-              className={`rounded-xl order-1 lg:order-none ${imageHoverClasses}`}
+              className={`rounded-xl order-1 lg:order-none  ${imageHoverClasses}`}
               initial={{ opacity: 0, x: -80 }}
               whileInView={{ opacity: 1, x: 0 }}
               whileHover={{ scale: 1.05 }}

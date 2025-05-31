@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   FaFlask,
   FaSatelliteDish,
@@ -9,7 +9,7 @@ import {
   FaFileAlt,
   FaCommentDots,
 } from "react-icons/fa";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqs = [
   {
@@ -34,18 +34,18 @@ const faqs = [
   },
 ];
 
-const fadeUpVariant = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.2,
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  }),
-};
+// const fadeUpVariant = {
+//   hidden: { opacity: 0, y: 40 },
+//   visible: (i: number) => ({
+//     opacity: 1,
+//     y: 0,
+//     transition: {
+//       delay: i * 0.2,
+//       duration: 0.6,
+//       ease: "easeOut",
+//     },
+//   }),
+// };
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -116,6 +116,11 @@ const ApplyPage = () => {
     comments: "",
     terms: false,
   });
+
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggleFAQ = (index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   // Debug: Add console logs to see if animation is working
   useEffect(() => {
@@ -996,46 +1001,67 @@ const ApplyPage = () => {
 
       {/* FAQ Section */}
       <section className="w-full py-20 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-gray-900 text-center mb-16"
-        >
-          Frequently Asked Questions
-        </motion.h2>
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl font-bold text-gray-900 text-center mb-16"
+          >
+            Frequently Asked Questions
+          </motion.h2>
 
-        <div className="space-y-8">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              custom={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUpVariant}
-              className="bg-white rounded-xl p-6 shadow-lg flex items-start gap-4"
-            >
-              <ChevronDown className="text-indigo-600 mt-1" />
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-700">{faq.answer}</p>
-              </div>
-            </motion.div>
-          ))}
+          <div className="space-y-6">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="bg-white rounded-xl p-6 shadow-md"
+                >
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="flex items-center justify-between w-full text-left"
+                  >
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      {faq.question}
+                    </h3>
+                    {isOpen ? (
+                      <ChevronUp className="text-indigo-600" />
+                    ) : (
+                      <ChevronDown className="text-indigo-600" />
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.p
+                        key="answer"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-gray-700 mt-4 overflow-hidden"
+                      >
+                        {faq.answer}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   );
 };
 
 export default ApplyPage;
-
 
 // ----- Reusable Input and Textarea Components -----
 const Input = ({
